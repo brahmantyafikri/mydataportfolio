@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(awk '{ print length }' portfolio_brahmantya_fikri.html)",
+      "Bash(awk '{ if \\(length\\($0\\) > 300\\) printf \"%d: [LONG LINE %d chars] %s...\\\\n\", NR, length\\($0\\), substr\\($0,1,120\\); else printf \"%d: %s\\\\n\", NR, $0 }' portfolio_brahmantya_fikri.html)",
+      "Bash(node scripts/validate_palette.js \"#2FA98C,#d95926\" --mode dark --surface \"#1A2038\" --pairs all)",
+      "Bash(node scripts/validate_palette.js \"#2FA98C,#eb6834\" --mode light --surface \"#FFFFFF\" --pairs all)",
+      "Bash(node scripts/validate_palette.js \"#1baf7a,#eb6834\" --mode light --surface \"#FFFFFF\" --pairs all)",
+      "Bash(xxd)",
+      "Bash(node /tmp/balance.js)",
+      "Bash(node /tmp/chart2.js)"
+    ]
+  }
+}
