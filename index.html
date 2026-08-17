@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="night">
+<html lang="en" data-theme="day">
 
 <head>
   <meta charset="UTF-8">
@@ -8,7 +8,7 @@
     href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2215%22%20fill%3D%22%231A2038%22%2F%3E%3Crect%20x%3D%2214%22%20y%3D%2234%22%20width%3D%228%22%20height%3D%2216%22%20rx%3D%222.5%22%20fill%3D%22%232FA98C%22%20opacity%3D%22.55%22%2F%3E%3Crect%20x%3D%2228%22%20y%3D%2224%22%20width%3D%228%22%20height%3D%2226%22%20rx%3D%222.5%22%20fill%3D%22%232FA98C%22%20opacity%3D%22.8%22%2F%3E%3Crect%20x%3D%2242%22%20y%3D%2214%22%20width%3D%228%22%20height%3D%2236%22%20rx%3D%222.5%22%20fill%3D%22%232FA98C%22%2F%3E%3C%2Fsvg%3E">
   <link rel="apple-touch-icon"
     href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2215%22%20fill%3D%22%231A2038%22%2F%3E%3Crect%20x%3D%2214%22%20y%3D%2234%22%20width%3D%228%22%20height%3D%2216%22%20rx%3D%222.5%22%20fill%3D%22%232FA98C%22%20opacity%3D%22.55%22%2F%3E%3Crect%20x%3D%2228%22%20y%3D%2224%22%20width%3D%228%22%20height%3D%2226%22%20rx%3D%222.5%22%20fill%3D%22%232FA98C%22%20opacity%3D%22.8%22%2F%3E%3Crect%20x%3D%2242%22%20y%3D%2214%22%20width%3D%228%22%20height%3D%2236%22%20rx%3D%222.5%22%20fill%3D%22%232FA98C%22%2F%3E%3C%2Fsvg%3E">
-  <meta name="theme-color" content="#1A2038">
+  <meta name="theme-color" content="#FFFFFF">
   <meta name="description"
     content="Brahmantya Fikri Setya Putra — Data Analyst, Data Scientist, Business Analyst. BNSP Certified Associate Data Analyst.">
   <title>Brahmantya Fikri — Data Portfolio</title>
@@ -36,6 +36,9 @@
     }
 
     [data-theme="night"] {
+      --sh-s: var(--sh-m);
+      --sh-m: var(--sh-m);
+      --sh-l: var(--sh-l);
       --bg: #1A2038;
       --bg2: #212843;
       --bg3: #2A3250;
@@ -49,6 +52,9 @@
     }
 
     [data-theme="day"] {
+      --sh-s: rgba(26, 32, 56, .07);
+      --sh-m: rgba(26, 32, 56, .10);
+      --sh-l: rgba(26, 32, 56, .14);
       --bg: #FFFFFF;
       --bg2: #F5F7F9;
       --bg3: #E8EDF1;
@@ -400,11 +406,14 @@
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
-      background-size: 64px 64px;
-      opacity: .5;
-      mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 10%, transparent 70%);
-      -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 10%, transparent 70%)
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px),
+        radial-gradient(color-mix(in srgb, var(--ink) 22%, transparent) 1px, transparent 1.6px);
+      background-size: 96px 96px, 96px 96px, 24px 24px;
+      opacity: .42;
+      -webkit-mask-image: radial-gradient(ellipse 120% 90% at 50% 30%, #000 30%, color-mix(in srgb, #000 35%, transparent) 78%);
+      mask-image: radial-gradient(ellipse 120% 90% at 50% 30%, #000 30%, color-mix(in srgb, #000 35%, transparent) 78%)
     }
 
     main,
@@ -808,7 +817,7 @@
       aspect-ratio: .86;
       background: linear-gradient(168deg, var(--bg3), var(--bg2));
       border: 1px solid var(--line2);
-      box-shadow: 0 44px 96px rgba(0, 0, 0, .44)
+      box-shadow: 0 44px 96px var(--sh-l)
     }
 
     /* inner hairline frame */
@@ -884,12 +893,15 @@
 
     .arch img {
       position: absolute;
-      left: 50%;
+      left: 0;
+      right: 0;
       bottom: 0;
-      transform: translateX(-50%);
+      transform: none;
       height: 97%;
-      width: auto;
+      width: 100%;
+      max-width: 100%;
       object-fit: contain;
+      object-position: bottom center;
       z-index: 2;
       filter: grayscale(1) contrast(1.18) brightness(1.06) sepia(.5) hue-rotate(120deg) saturate(2);
       transition: filter .9s cubic-bezier(.16, 1, .3, 1)
@@ -1007,7 +1019,7 @@
       backdrop-filter: blur(16px) saturate(1.3);
       -webkit-backdrop-filter: blur(16px) saturate(1.3);
       border: 1px solid var(--line2);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, .34)
+      box-shadow: 0 18px 40px var(--sh-m)
     }
 
     .avail b {
@@ -1520,8 +1532,8 @@
       border: 1px solid var(--line);
       background: var(--bg2);
       transform-origin: 50% 0%;
-      will-change: transform, filter;
-      box-shadow: 0 30px 70px rgba(0, 0, 0, .30)
+      will-change: auto;
+      box-shadow: 0 30px 70px var(--sh-m)
     }
 
     .scard .bgimg {
@@ -1696,8 +1708,6 @@
 
     /* project stack variant */
     .scard.pj {
-      content-visibility: auto;
-      contain-intrinsic-size: auto 460px;
       background: var(--bg2);
       min-height: auto;
       margin-bottom: 26px;
@@ -1764,10 +1774,8 @@
       opacity: 0
     }
 
-    .scard {
-      --p: 0;
-      will-change: transform
-    }
+    .scard { --p: 0 }
+    .scard.moving { will-change: transform }
 
     .scard.pj::before {
       content: '';
@@ -1992,9 +2000,9 @@
     }
 
     .skgrid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 28px
+      display: flex;
+      flex-direction: column;
+      gap: 26px
     }
 
     @media(max-width:620px) {
@@ -2261,7 +2269,7 @@
     .tl:hover {
       transform: translateY(-5px);
       border-color: var(--sig);
-      box-shadow: 0 12px 26px rgba(0, 0, 0, .26)
+      box-shadow: 0 12px 26px var(--sh-s)
     }
 
     .tl img {
@@ -2604,7 +2612,7 @@
       border-radius: 20px;
       overflow: hidden;
       border: 1px solid var(--line2);
-      box-shadow: 0 30px 70px rgba(0, 0, 0, .36);
+      box-shadow: 0 30px 70px var(--sh-m);
       background: var(--bg3);
       cursor: grab;
       transition: transform .55s cubic-bezier(.16, 1, .3, 1), opacity .45s, filter .55s
@@ -2630,7 +2638,7 @@
       padding: 26px 20px 16px;
       color: #fff;
       z-index: 2;
-      background: linear-gradient(transparent, rgba(0, 0, 0, .78));
+      background: linear-gradient(transparent, var(--sh-l));
       font-family: var(--fm);
       font-size: 9.5px;
       letter-spacing: .16em;
@@ -3167,7 +3175,7 @@
     .toolrun .tl:hover {
       transform: translateY(-5px);
       border-color: var(--sig);
-      box-shadow: 0 12px 26px rgba(0, 0, 0, .28)
+      box-shadow: 0 12px 26px var(--sh-s)
     }
 
     .toolrun .tl:hover img {
@@ -3236,7 +3244,7 @@
     .crow:hover {
       transform: translateY(-4px);
       border-color: var(--line2);
-      box-shadow: 0 18px 44px rgba(0, 0, 0, .26);
+      box-shadow: 0 18px 44px var(--sh-s);
       padding-left: 30px
     }
 
@@ -3539,6 +3547,485 @@
         animation: none
       }
     }
+  
+    /* ---------- skillset, tidied ---------- */
+    .skgroup { border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px 8px; background: var(--bg) }
+
+    .skgroup h3 {
+      margin-bottom: 10px;
+      padding-bottom: 10px
+    }
+
+    .skgroup .rows {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(238px, 1fr));
+      column-gap: 26px
+    }
+
+    .skrow {
+      min-height: 38px;
+      padding: 8px 0;
+      gap: 10px
+    }
+
+    .skrow .nm {
+      flex: 1 1 auto;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 13px
+    }
+
+    .skrow .meter { margin-left: auto }
+    .skrow .coretag { margin-left: 4px }
+    .skrow.dim { opacity: .22; pointer-events: none }
+
+    .gbar { margin-bottom: 10px }
+
+    /* legend reads as a proper key */
+    .skfoot {
+      gap: 0;
+      margin-top: 22px;
+      padding: 12px 16px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      justify-content: flex-start
+    }
+
+    .skfoot .keyitem { display: inline-flex; align-items: center; gap: 8px; padding: 0 16px; border-right: 1px solid var(--line) }
+    .skfoot .keyitem:last-of-type { border-right: 0 }
+    .skfoot .keyitem:first-of-type { padding-left: 0 }
+    .skfoot .hintright { margin-left: auto; padding-left: 16px; color: var(--dim) }
+    .skfoot .meter i { transform: scaleX(1) }
+
+    @media(max-width:980px) {
+      .skpanel { position: static }
+    }
+
+    @media(max-width:640px) {
+      .skgroup { padding: 14px 15px 6px }
+      .skgroup .rows { grid-template-columns: 1fr }
+      .skfoot { border-radius: 16px; padding: 12px 14px }
+      .skfoot .keyitem { padding: 4px 12px 4px 0; border-right: 0 }
+      .skfoot .hintright { margin-left: 0; padding-left: 0; width: 100% }
+    }
+  
+    /* ---------- loading: segmented bar + checklist ---------- */
+    .pl-seg { display: flex; gap: 3px; margin-top: 20px }
+
+    .pl-seg i {
+      flex: 1;
+      height: 10px;
+      border-radius: 2px;
+      background: var(--line);
+      position: relative;
+      overflow: hidden
+    }
+
+    .pl-seg i::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--sig);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .28s cubic-bezier(.16, 1, .3, 1)
+    }
+
+    .pl-seg i.on::after { transform: scaleX(1) }
+    .pl-seg i.tip::after { box-shadow: 0 0 14px color-mix(in srgb, var(--sig) 85%, transparent) }
+
+    .pl-rail { margin-top: 10px }
+
+    .pl-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 18px;
+      margin-top: 16px;
+      font-family: var(--fm);
+      font-size: 8.5px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--dim2)
+    }
+
+    .pl-list li { display: inline-flex; align-items: center; gap: 7px; opacity: .45; transition: opacity .35s, color .35s }
+    .pl-list li.done { opacity: 1; color: var(--ink) }
+
+    .pl-list i {
+      width: 12px;
+      height: 12px;
+      border-radius: 4px;
+      border: 1px solid var(--line2);
+      position: relative;
+      transition: background .3s, border-color .3s
+    }
+
+    .pl-list li.done i { background: var(--sig); border-color: var(--sig) }
+
+    .pl-list li.done i::after {
+      content: '';
+      position: absolute;
+      left: 3px;
+      top: 3.5px;
+      width: 5px;
+      height: 2.5px;
+      border-left: 1.4px solid #fff;
+      border-bottom: 1.4px solid #fff;
+      transform: rotate(-45deg)
+    }
+  
+    /* ---------- light-theme corrections for dark-era treatments ---------- */
+    [data-theme="day"] .scard .bgimg img { filter: grayscale(.92) blur(9px) brightness(1.14) contrast(.92) }
+
+    [data-theme="day"] .scard .veil {
+      background: linear-gradient(105deg,
+        color-mix(in srgb, var(--bg2) 96%, transparent) 30%,
+        color-mix(in srgb, var(--bg2) 78%, transparent) 66%,
+        color-mix(in srgb, var(--bg2) 42%, transparent))
+    }
+
+    [data-theme="day"] .scard { background: var(--bg2) }
+    [data-theme="day"] .arch { background: linear-gradient(168deg, var(--bg3), var(--bg2)) }
+    [data-theme="day"] .hls span { background: color-mix(in srgb, var(--bg) 90%, transparent) }
+    [data-theme="day"] .pl-panels i { background: var(--bg) }
+
+    @media(max-width:920px) {
+      [data-theme="day"] .scard .bgimg img { filter: grayscale(.92) brightness(1.14) }
+    }
+  
+    /* ---------- hero portrait: never crop, on any screen ---------- */
+    .arch { aspect-ratio: .86 }
+
+    @media(max-width:900px) {
+      .photocard { max-width: min(360px, 78vw) }
+      .arch { aspect-ratio: .95 }
+    }
+
+    @media(max-width:640px) {
+      .photocard { max-width: min(320px, 82vw) }
+      .arch { aspect-ratio: 1 }
+      .arch img { height: 96% }
+      .arch::after { inset: 10px; border-radius: 14px }
+      .ticks { inset: 18px }
+      .coord.tl { top: 24px; left: 24px }
+      .coord.br { bottom: 24px; right: 24px }
+    }
+
+    @media(max-width:400px) {
+      .photocard { max-width: 86vw }
+      .arch { aspect-ratio: 1.04 }
+      .coord { font-size: 7px }
+    }
+  
+    /* ---------- hit-testing fixes ---------- */
+    .scard .bgimg,
+    .scard .veil,
+    .scard .idx,
+    .pjopen,
+    .pjmedia::after,
+    .arch::before,
+    .arch::after,
+    .ticks,
+    .coord,
+    .pl-seg,
+    .pl-list { pointer-events: none }
+
+    /* the closed drawer is a full-screen fixed layer — keep it inert */
+    #drawer { pointer-events: none }
+    #drawer.on { pointer-events: auto }
+
+    /* later cards must sit above earlier ones while stacking */
+    .scard { z-index: calc(var(--i, 0) + 1) }
+
+    /* card content always above the card's own decoration */
+    .scard .inner { position: relative; z-index: 2 }
+    .pjmedia { position: relative; z-index: 3 }
+  
+    .ring svg, .skpanel .ring svg { pointer-events: none }
+  
+    /* ---------- tool belt: bigger, clearer, with a text fallback ---------- */
+    .toollabel {
+      font-family: var(--fm);
+      font-size: 9.5px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--dim2);
+      margin-top: 30px
+    }
+
+    .toolwrap { margin-top: 12px; gap: 12px }
+
+    .toolrun { gap: 12px }
+
+    .toolrun .tl {
+      gap: 12px;
+      padding: 12px 20px;
+      border-radius: 14px;
+      font-size: 10.5px;
+      letter-spacing: .14em;
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      color: var(--ink)
+    }
+
+    .toolrun .tl img {
+      width: 26px;
+      height: 26px;
+      filter: grayscale(.25);
+      opacity: 1
+    }
+
+    .toolrun .tl:hover img { filter: none; transform: scale(1.14) }
+
+    .toolrun .tl:hover {
+      transform: translateY(-5px);
+      border-color: var(--sig);
+      box-shadow: 0 14px 30px var(--sh-m)
+    }
+
+    /* monogram shown when a logo file is unavailable */
+    .tl .icon-fb {
+      width: 28px;
+      height: 28px;
+      flex: 0 0 28px;
+      border-radius: 9px;
+      display: grid;
+      place-items: center;
+      background: color-mix(in srgb, var(--sig) 13%, transparent);
+      color: var(--sig);
+      transition: background .3s, color .3s, transform .3s
+    }
+
+    .tl .icon-fb svg { width: 17px; height: 17px; display: block }
+    .toolrun .tl:hover .icon-fb { background: var(--sig); color: #fff; transform: scale(1.08) }
+
+    @media(max-width:640px) {
+      .toolrun .tl { padding: 10px 15px; font-size: 9.5px; gap: 9px }
+      .toolrun .tl img, .tl .icon-fb { width: 23px; height: 23px; flex-basis: 23px }
+      .tl .icon-fb svg { width: 14px; height: 14px }
+      .toollabel { margin-top: 24px }
+    }
+  
+    /* ================= depth & texture pass ================= */
+
+    /* soft blooms so the page is never a flat white sheet */
+    body::before,
+    body::after {
+      content: '';
+      position: fixed;
+      z-index: 0;
+      pointer-events: none;
+      border-radius: 50%;
+      filter: blur(90px)
+    }
+
+    body::before {
+      width: 46vw; height: 46vw;
+      top: -14vw; right: -10vw;
+      background: radial-gradient(circle, color-mix(in srgb, var(--sig) 26%, transparent), transparent 68%)
+    }
+
+    body::after {
+      width: 40vw; height: 40vw;
+      bottom: 6vw; left: -14vw;
+      background: radial-gradient(circle, color-mix(in srgb, var(--navy, #1A2038) 12%, transparent), transparent 68%)
+    }
+
+    [data-theme="day"] { --grain: .045 }
+
+    /* ghost numeral behind every section heading */
+    .shead { position: relative }
+
+    .shead::before {
+      content: attr(data-ghost);
+      position: absolute;
+      right: 0;
+      top: 34%;
+      font-family: var(--fd);
+      font-weight: 800;
+      font-size: clamp(80px, 15vw, 190px);
+      line-height: .8;
+      letter-spacing: -.06em;
+      color: var(--ink);
+      opacity: .035;
+      pointer-events: none;
+      z-index: 0;
+      user-select: none
+    }
+
+    .shead>div, .shead>.rt { position: relative; z-index: 1 }
+
+    /* headings get a teal keyline */
+    .shead h2 { position: relative; display: inline-block; padding-bottom: 6px }
+
+    .shead h2::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: 0;
+      width: 44px; height: 3px;
+      border-radius: 2px;
+      background: var(--sig);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .7s cubic-bezier(.16, 1, .3, 1)
+    }
+
+    .rev.in .shead h2::after, .shead h2::after { transform: scaleX(1) }
+
+    /* alternating tonal bands so sections separate */
+    #exp, #projects { background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--bg3) 55%, transparent) 22%, color-mix(in srgb, var(--bg3) 55%, transparent) 78%, transparent) }
+
+    /* cards: layered elevation instead of a single flat border */
+    .scard {
+      box-shadow: 0 1px 0 color-mix(in srgb, #fff 60%, transparent) inset,
+                  0 18px 44px var(--sh-s),
+                  0 2px 8px var(--sh-s)
+    }
+
+    [data-theme="night"] .scard { box-shadow: 0 1px 0 rgba(255, 255, 255, .05) inset, 0 22px 50px var(--sh-m) }
+
+    /* eyebrow gets a leading rule */
+    .shead .mono { display: inline-flex; align-items: center; gap: 10px }
+
+    .shead .mono::before {
+      content: '';
+      width: 22px; height: 1px;
+      background: var(--sig);
+      display: inline-block
+    }
+
+    /* pills and buttons get a touch of dimension */
+    .btn.solid { background: linear-gradient(160deg, var(--ink), color-mix(in srgb, var(--ink) 82%, var(--sig))) }
+    .tab.active { box-shadow: 0 6px 16px var(--sh-s) }
+    .statpill { background: var(--bg2) }
+
+    @media(max-width:640px) {
+      .shead::before { font-size: clamp(64px, 26vw, 110px); opacity: .03 }
+      body::before, body::after { filter: blur(60px) }
+    }
+  
+    /* ---------- living backdrop ---------- */
+    .guides {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      max-width: 1420px;
+      margin: 0 auto;
+      background-image: linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: calc(100% / 4) 100%;
+      opacity: .8
+    }
+
+    .aurora { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden }
+
+    .aurora i {
+      position: absolute;
+      display: block;
+      border-radius: 50%;
+      filter: blur(80px);
+      will-change: transform
+    }
+
+    .aurora i:nth-child(1) {
+      width: 52vw; height: 52vw;
+      top: -16vw; right: -12vw;
+      background: radial-gradient(circle, color-mix(in srgb, var(--sig) 34%, transparent), transparent 66%);
+      animation: drift1 26s ease-in-out infinite
+    }
+
+    .aurora i:nth-child(2) {
+      width: 44vw; height: 44vw;
+      top: 42%; left: -16vw;
+      background: radial-gradient(circle, color-mix(in srgb, #7FA8FF 30%, transparent), transparent 66%);
+      animation: drift2 32s ease-in-out infinite
+    }
+
+    .aurora i:nth-child(3) {
+      width: 40vw; height: 40vw;
+      bottom: -14vw; right: 8vw;
+      background: radial-gradient(circle, color-mix(in srgb, var(--sig) 24%, transparent), transparent 68%);
+      animation: drift1 38s ease-in-out infinite reverse
+    }
+
+    @keyframes drift1 { 0%, 100% { transform: translate3d(0, 0, 0) } 50% { transform: translate3d(-4vw, 4vw, 0) } }
+    @keyframes drift2 { 0%, 100% { transform: translate3d(0, 0, 0) } 50% { transform: translate3d(5vw, -3vw, 0) } }
+
+    /* the old body blooms are replaced by .aurora */
+    body::before, body::after { display: none }
+
+    /* let the backdrop show through the tonal bands */
+    #skills { background: color-mix(in srgb, var(--bg2) 82%, transparent) }
+    .figband, .ticker { background: color-mix(in srgb, var(--bg2) 84%, transparent) }
+    [data-theme="day"] { --bg2: #F2F5F8; --bg3: #E6EBF0 }
+
+    @media(prefers-reduced-motion:reduce) { .aurora i { animation: none } }
+
+    @media(max-width:900px) {
+      .guides { display: none }
+      .aurora i { filter: blur(56px) }
+      .aurora i:nth-child(2) { display: none }
+    }
+  
+    /* ---------- section headings: fixed layout + fully responsive ---------- */
+    .shead { align-items: flex-end }
+
+    /* the eyebrow must stay block-level, or the h2 flows beside it */
+    .shead .mono {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px
+    }
+
+    /* underline without turning the heading inline */
+    .shead h2 {
+      display: block;
+      width: fit-content;
+      max-width: 100%;
+      position: relative;
+      padding-bottom: 8px;
+      overflow-wrap: break-word
+    }
+
+    .shead>div { min-width: 0; flex: 1 1 320px }
+    .shead>.rt { flex: 0 1 320px }
+
+    .shead::before { top: 50%; transform: translateY(-50%) }
+
+    @media(max-width:860px) {
+      .shead {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 72px 0 28px
+      }
+
+      .shead>.rt { text-align: left; max-width: 46ch; flex: 1 1 auto }
+      .shead::before { font-size: clamp(64px, 20vw, 130px); right: -.06em; opacity: .045 }
+    }
+
+    @media(max-width:640px) {
+      .shead { padding: 56px 0 22px }
+      .shead h2 { font-size: clamp(26px, 8.6vw, 40px); padding-bottom: 7px }
+      .shead h2::after { width: 34px; height: 2.5px }
+      .shead .mono { font-size: 8.5px; letter-spacing: .18em; margin-bottom: 8px }
+      .shead .mono::before { width: 14px }
+      .shead>.rt { font-size: 12.5px }
+      .shead::before { font-size: clamp(56px, 24vw, 96px); opacity: .04 }
+      .shead.sub { padding: 44px 0 18px }
+    }
+
+    @media(max-width:400px) {
+      .shead .mono::before { display: none }
+      .shead::before { display: none }
+    }
+  
+    /* paused while off-screen — costs nothing, looks identical when visible */
+    .anim-off, .anim-off * { animation-play-state: paused !important }
   </style>
 </head>
 
@@ -3549,7 +4036,14 @@
     <div class="pl-in">
       <span class="pl-tag">Data Analyst · Data Science · Business Analyst</span>
       <span class="pl-name"><em>Brahmantya</em>&nbsp;<em>Fikri</em></span>
+      <div class="pl-seg" id="plSeg" aria-hidden="true"></div>
       <div class="pl-rail"><i id="plFill"></i></div>
+      <ul class="pl-list" id="plList">
+        <li data-at="18"><i></i>Assets</li>
+        <li data-at="42"><i></i>Charts</li>
+        <li data-at="66"><i></i>Cards</li>
+        <li data-at="88"><i></i>Layout</li>
+      </ul>
       <div class="pl-meta">
         <span class="pl-count"><span id="plPct">000</span><em>%</em></span>
         <span id="plStage">Booting</span>
@@ -3563,6 +4057,8 @@
     </div>
   </div>
   <div class="plotpaper"></div>
+  <div class="guides" aria-hidden="true"></div>
+  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="grain"></div>
   <nav class="rail" id="rail" aria-label="Section navigation">
     <a href="#hero" data-s="hero"><i></i><span>Start</span></a>
@@ -3589,7 +4085,7 @@
           </svg>
           <span id="pct">0</span>
         </div>
-        <button class="iconbtn" id="theme" aria-label="Toggle theme" title="Toggle theme">☾</button>
+        <button class="iconbtn" id="theme" aria-label="Toggle theme" title="Toggle theme">☀</button>
         <button class="mbtn" id="menu">Menu</button>
       </div>
     </div>
@@ -3683,7 +4179,7 @@
 
     <section id="about">
       <div class="wrap">
-        <div class="shead">
+        <div class="shead" data-ghost="01">
           <div>
             <p class="mono">01 — Profile</p>
             <h2 data-scramble>About</h2>
@@ -3730,7 +4226,7 @@
 
     <section id="exp">
       <div class="wrap">
-        <div class="shead">
+        <div class="shead" data-ghost="02">
           <div>
             <p class="mono">02 — Professional</p>
             <h2 data-scramble>Work Experience</h2>
@@ -3808,7 +4304,7 @@
 
     <section id="org">
       <div class="wrap">
-        <div class="shead">
+        <div class="shead" data-ghost="03">
           <div>
             <p class="mono">03 — Campus</p>
             <h2 data-scramble>Organizational</h2>
@@ -3912,7 +4408,7 @@
 
     <section id="projects">
       <div class="wrap wide">
-        <div class="shead">
+        <div class="shead" data-ghost="04">
           <div>
             <p class="mono">04 — Selected work</p>
             <h2 data-scramble>Projects</h2>
@@ -4195,7 +4691,7 @@
 
     <section id="skills">
       <div class="wrap">
-        <div class="shead">
+        <div class="shead" data-ghost="05">
           <div>
             <p class="mono">05 — Capability matrix</p>
             <h2 data-scramble>Skills</h2>
@@ -4212,35 +4708,31 @@
           <div class="skgrid" id="skgrid"></div>
           <aside class="skpanel" id="skpanel"></aside>
         </div>
-        <div class="skfoot">Depth
-          <span class="meter"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span> Working
-          <span class="meter"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i
-              class="on"></i></span> Core
-          <span style="margin-left:auto">Hover a skill · click a project to jump</span>
+        <div class="skfoot">
+          <span class="keyitem">Depth</span>
+          <span class="keyitem"><span class="meter"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span> Working</span>
+          <span class="keyitem"><span class="meter"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span> Core</span>
+          <span class="hintright">Hover a skill · click a project to jump</span>
         </div>
+        <p class="toollabel rev">Tools I work with</p>
         <div class="toolwrap rev d1">
           <div class="toolrow">
-            <div class="toolrun"><span class="tl"><img src="assets/python.png" alt="" loading="lazy"
-                  decoding="async">Python</span><span class="tl"><img src="assets/rstudio.png" alt="" loading="lazy"
-                  decoding="async">R / RStudio</span><span class="tl"><img src="assets/sql.png" alt="" loading="lazy"
-                  decoding="async">SQL / MySQL</span><span class="tl"><img src="assets/looker.png" alt="" loading="lazy"
-                  decoding="async">Looker Studio</span><span class="tl"><img src="assets/tableau.png" alt=""
-                  loading="lazy" decoding="async">Tableau</span><span class="tl"><img src="assets/python.png" alt=""
-                  loading="lazy" decoding="async">Python</span><span class="tl"><img src="assets/rstudio.png" alt=""
-                  loading="lazy" decoding="async">R / RStudio</span><span class="tl"><img src="assets/sql.png" alt=""
-                  loading="lazy" decoding="async">SQL / MySQL</span><span class="tl"><img src="assets/looker.png" alt=""
-                  loading="lazy" decoding="async">Looker Studio</span><span class="tl"><img src="assets/tableau.png"
-                  alt="" loading="lazy" decoding="async">Tableau</span></div>
+            <div class="toolrun"><span class="tl"><img src="assets/python.png" alt=""
+                  decoding="async">Python</span><span class="tl"><img src="assets/rstudio.png" alt=""
+                  decoding="async">R / RStudio</span><span class="tl"><img src="assets/sql.png" alt=""
+                  decoding="async">SQL / MySQL</span><span class="tl"><img src="assets/looker.png" alt=""
+                  decoding="async">Looker Studio</span><span class="tl"><img src="assets/tableau.png" alt="" decoding="async">Tableau</span><span class="tl"><img src="assets/python.png" alt="" decoding="async">Python</span><span class="tl"><img src="assets/rstudio.png" alt="" decoding="async">R / RStudio</span><span class="tl"><img src="assets/sql.png" alt="" decoding="async">SQL / MySQL</span><span class="tl"><img src="assets/looker.png" alt="" decoding="async">Looker Studio</span><span class="tl"><img src="assets/tableau.png"
+                  alt="" decoding="async">Tableau</span></div>
           </div>
           <div class="toolrow rev-dir">
-            <div class="toolrun"><span class="tl"><img src="assets/powerbi.png" alt="" loading="lazy"
-                  decoding="async">Power BI</span><span class="tl"><img src="assets/excel.png" alt="" loading="lazy"
-                  decoding="async">Excel</span><span class="tl"><img src="assets/sheet.png" alt="" loading="lazy"
-                  decoding="async">Sheets</span><span class="tl"><img src="assets/spss.png" alt="" loading="lazy"
-                  decoding="async">SPSS</span><span class="tl"><img src="assets/powerbi.png" alt="" loading="lazy"
-                  decoding="async">Power BI</span><span class="tl"><img src="assets/excel.png" alt="" loading="lazy"
-                  decoding="async">Excel</span><span class="tl"><img src="assets/sheet.png" alt="" loading="lazy"
-                  decoding="async">Sheets</span><span class="tl"><img src="assets/spss.png" alt="" loading="lazy"
+            <div class="toolrun"><span class="tl"><img src="assets/powerbi.png" alt=""
+                  decoding="async">Power BI</span><span class="tl"><img src="assets/excel.png" alt=""
+                  decoding="async">Excel</span><span class="tl"><img src="assets/sheet.png" alt=""
+                  decoding="async">Sheets</span><span class="tl"><img src="assets/spss.png" alt=""
+                  decoding="async">SPSS</span><span class="tl"><img src="assets/powerbi.png" alt=""
+                  decoding="async">Power BI</span><span class="tl"><img src="assets/excel.png" alt=""
+                  decoding="async">Excel</span><span class="tl"><img src="assets/sheet.png" alt=""
+                  decoding="async">Sheets</span><span class="tl"><img src="assets/spss.png" alt=""
                   decoding="async">SPSS</span></div>
           </div>
         </div>
@@ -4249,7 +4741,7 @@
 
     <section id="certs">
       <div class="wrap">
-        <div class="shead">
+        <div class="shead" data-ghost="06">
           <div>
             <p class="mono">06 — Verified</p>
             <h2 data-scramble>Credentials</h2>
@@ -4318,7 +4810,7 @@
           </div>
         </div>
 
-        <div class="shead">
+        <div class="shead" data-ghost="07">
           <div>
             <p class="mono">07 — Off the record</p>
             <h2 data-scramble>Gallery</h2>
@@ -4384,8 +4876,15 @@
       document.body.classList.add('hascur');
       const dot = $('.cur'), ring = $('.curr');
       let rx = 0, ry = 0, mx = 0, my = 0;
-      addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.transform = `translate(${mx}px,${my}px)` });
-      (function raf() { rx += (mx - rx) * .15; ry += (my - ry) * .15; ring.style.transform = `translate(${rx}px,${ry}px)`; requestAnimationFrame(raf) })();
+      addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.transform = `translate(${mx}px,${my}px)`; kickCursor() }, { passive: true });
+      let curRun = false;
+      function curLoop() {
+        rx += (mx - rx) * .15; ry += (my - ry) * .15;
+        ring.style.transform = `translate(${rx}px,${ry}px)`;
+        if (Math.abs(mx - rx) < .3 && Math.abs(my - ry) < .3) { curRun = false; return }
+        requestAnimationFrame(curLoop);
+      }
+      const kickCursor = () => { if (!curRun) { curRun = true; requestAnimationFrame(curLoop) } };
       const grow = () => ring.classList.add('big'), shrink = () => ring.classList.remove('big');
       const lbl = $('#curlbl');
       addEventListener('mousemove', e => { lbl.style.transform = `translate(${e.clientX}px,${e.clientY}px)` });
@@ -4424,12 +4923,17 @@
 
     /* ---------- section rail ---------- */
     const railLinks = $$('.rail a'), secs = railLinks.map(a => document.getElementById(a.dataset.s)).filter(Boolean);
+    let secTops = [], railCur = null;
+    function measureRail() { secTops = secs.map(s => s.offsetTop) }
     function railScroll() {
       let cur = secs[0];
-      secs.forEach(s => { if (s && scrollY >= s.offsetTop - innerHeight * .4) cur = s });
+      for (let i = 0; i < secs.length; i++) if (scrollY >= secTops[i] - innerHeight * .4) cur = secs[i];
+      if (cur === railCur) return;                 // nothing changed: no DOM writes at all
+      railCur = cur;
       railLinks.forEach(a => a.classList.toggle('on', a.dataset.s === cur.id));
     }
-    railScroll();
+    measureRail(); railScroll();
+    addEventListener('load', measureRail);
 
     /* ---------- scroll-velocity skew ---------- */
 
@@ -4725,7 +5229,7 @@
         return `<div class="skgroup">
           <h3><span>${g}</span><b class="gcount">${live.length}</b></h3>
           <div class="gbar"><i style="width:${avg / 5 * 100}%"></i></div>
-          ${body}</div>`;
+          <div class="rows">${body}</div></div>`;
       }).join('');
       skgrid.querySelectorAll('.skrow').forEach(row => {
         const sk = FLAT.find(f => f.n === row.dataset.n);
@@ -4767,29 +5271,62 @@
     const stacks = $$('.stack');
     const LOWPOWER = innerWidth <= 900 || (navigator.hardwareConcurrency || 8) <= 4;
     let stackCards = [];
+    let stackGroups = [];
     function measureStacks() {
-      stackCards = [];
+      stackCards = []; stackGroups = [];
       stacks.forEach(st => {
         const cs = [...st.children].filter(c => c.classList.contains('scard') && !c.classList.contains('hide'));
+        const group = { root: st, items: [] };
         cs.forEach((c, i) => {
-          if (i < cs.length - 1) stackCards.push({ el: c, next: cs[i + 1], gap: 96 + i * 5, h: c.offsetHeight, last: -1 });
-          else { c.style.transform = ''; c.style.setProperty('--p', 0) }
+          if (i < cs.length - 1) {
+            const rec = { el: c, next: cs[i + 1], gap: 96 + i * 5, h: c.offsetHeight, last: -1 };
+            stackCards.push(rec); group.items.push(rec);
+          } else { c.style.transform = ''; c.style.setProperty('--p', 0) }
         });
+        if (group.items.length) stackGroups.push(group);
       });
     }
     function stackScroll() {
       if (RM || LOWPOWER) return;
-      for (const s of stackCards) {
-        const p = Math.min(Math.max(1 - (s.next.getBoundingClientRect().top - s.gap) / s.h, 0), 1);
-        const q = Math.round(p * 50) / 50;
-        if (q === s.last) continue;
-        s.last = q;
-        s.el.style.transform = `scale(${1 - q * .07}) translateY(${q * -12}px)`;
-        s.el.style.setProperty('--p', q);
+      const vh = innerHeight;
+      for (const g of stackGroups) {
+        const r = g.root.getBoundingClientRect();
+        if (r.bottom < -vh || r.top > vh * 1.5) {          // far away: skip the whole group
+          if (g.active) {
+            g.active = false;
+            g.items.forEach(s => s.el.classList.remove('moving'));
+          }
+          continue;
+        }
+        if (!g.active) { g.active = true; g.items.forEach(s => s.el.classList.add('moving')) }
+        for (const s of g.items) {
+          const p = Math.min(Math.max(1 - (s.next.getBoundingClientRect().top - s.gap) / s.h, 0), 1);
+          const q = Math.round(p * 50) / 50;
+          if (q === s.last) continue;
+          s.last = q;
+          s.el.style.transform = `scale(${1 - q * .07}) translateY(${q * -12}px)`;
+          s.el.style.setProperty('--p', q);
+        }
       }
     }
-    addEventListener('resize', () => { measureStacks(); stackScroll() });
+    let rsz;
+    addEventListener('resize', () => {
+      clearTimeout(rsz);
+      rsz = setTimeout(() => { measureRail(); measureStacks(); stackScroll(); }, 150);
+    });
     measureStacks(); stackScroll();
+
+    /* ---------- pause animations that are scrolled out of view ---------- */
+    if (LOWPOWER) document.querySelectorAll('.aurora i').forEach(b => b.style.animation = 'none');
+
+    (function pauseOffscreen() {
+      const targets = [...$$('.toolrun'), ...$$('.tick-in'), ...$$('.arch .rings'), ...$$('.tagchip'), ...$$('.avail')];
+      if (!targets.length || !('IntersectionObserver' in window)) return;
+      const io = new IntersectionObserver(es => es.forEach(e => {
+        e.target.classList.toggle('anim-off', !e.isIntersecting);
+      }), { rootMargin: '120px' });
+      targets.forEach(t => io.observe(t));
+    })();
 
     /* ---------- hero parallax ---------- */
     const parEls = $$('[data-par]'), photocard = $('#photocard');
@@ -4898,6 +5435,50 @@
       ns.forEach((im, i) => im.onclick = () => openLB(ns.map(n => ({ src: n.src, cap: n.dataset.cap || '' })), i));
     });
 
+    /* ---------- tool logos: inline icon fallback if a file is missing ---------- */
+    (function toolFallback() {
+      const S = (p, extra) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+        stroke-linecap="round" stroke-linejoin="round"${extra || ''}>${p}</svg>`;
+      const ICON = {
+        python: S('<path d="M12 3c-3 0-4 1.2-4 3v2h4"/><path d="M8 8H6.2C4.4 8 3 9.6 3 11.6v1.2C3 14.8 4.4 16 6.2 16H8"/><circle cx="9.4" cy="5.6" r=".9" fill="currentColor" stroke="none"/><path d="M12 21c3 0 4-1.2 4-3v-2h-4"/><path d="M16 16h1.8c1.8 0 3.2-1.2 3.2-3.2v-1.2C21 9.6 19.6 8 17.8 8H16"/><circle cx="14.6" cy="18.4" r=".9" fill="currentColor" stroke="none"/>'),
+        r: S('<circle cx="12" cy="12" r="9"/><path d="M9 17V8h3.4a2.3 2.3 0 0 1 0 4.6H9"/><path d="M12.6 12.6 15.6 17"/>'),
+        sql: S('<ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/>'),
+        looker: S('<rect x="3" y="3" width="18" height="18" rx="4"/><path d="M7.5 15.5v-3"/><path d="M12 15.5v-6"/><path d="M16.5 15.5v-4.5"/>'),
+        tableau: S('<path d="M12 3v18"/><path d="M3 12h18"/><path d="M7 7.5v9"/><path d="M17 7.5v9"/><path d="M7.5 7h9"/><path d="M7.5 17h9"/>'),
+        powerbi: S('<rect x="4" y="12" width="4" height="8" rx="1.2"/><rect x="10" y="8" width="4" height="12" rx="1.2"/><rect x="16" y="4" width="4" height="16" rx="1.2"/>'),
+        excel: S('<rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9h18"/><path d="M9 9v11"/><path d="M13.5 12.5l4 5"/><path d="M17.5 12.5l-4 5"/>'),
+        sheets: S('<rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9h18"/><path d="M9 9v11"/><path d="M15 9v11"/><path d="M3 14.5h18"/>'),
+        spss: S('<path d="M3 19h18"/><path d="M4 15c2.6 0 3-8 6-8s3.4 8 6 8 2.6-4 4-4"/>'),
+        chart: S('<path d="M4 19V5"/><path d="M4 19h16"/><path d="M8 16v-5"/><path d="M13 16V8"/><path d="M18 16v-3"/>')
+      };
+      const pick = t => {
+        const s = t.toLowerCase();
+        if (s.includes('python')) return ICON.python;
+        if (s.includes('rstudio') || s === 'r') return ICON.r;
+        if (s.includes('sql')) return ICON.sql;
+        if (s.includes('looker')) return ICON.looker;
+        if (s.includes('tableau')) return ICON.tableau;
+        if (s.includes('power')) return ICON.powerbi;
+        if (s.includes('excel')) return ICON.excel;
+        if (s.includes('sheet')) return ICON.sheets;
+        if (s.includes('spss')) return ICON.spss;
+        return ICON.chart;
+      };
+      $$('.toolrun .tl').forEach(chip => {
+        const img = chip.querySelector('img'); if (!img) return;
+        const label = chip.textContent.trim();
+        const swap = () => {
+          const cur = chip.querySelector('img'); if (!cur) return;
+          const fb = document.createElement('span');
+          fb.className = 'icon-fb';
+          fb.innerHTML = pick(label);
+          cur.replaceWith(fb);
+        };
+        if (img.complete && img.naturalWidth === 0) swap();
+        img.addEventListener('error', swap);
+      });
+    })();
+
     if (window.bindCursor) window.bindCursor();
     /* ---------- one rAF-throttled scroll ticker ---------- */
     let ticking = false;
@@ -4915,6 +5496,10 @@
     /* ---------- preloader ---------- */
     (function () {
       const pre = $('#preload'), fill = $('#plFill'), pct = $('#plPct'), stage = $('#plStage'), ring = $('#plRing'), RC = 2 * Math.PI * 19;
+      const seg = $('#plSeg'), SEGN = 24;
+      if (seg) seg.innerHTML = Array.from({ length: SEGN }, () => '<i></i>').join('');
+      const segs = seg ? [...seg.children] : [];
+      const steps = $$('#plList li');
       if (RM) { pre.remove(); document.body.classList.add('ready'); return }
       const STAGES = [[0, 'Booting'], [22, 'Loading assets'], [48, 'Building charts'], [72, 'Laying out cards'], [92, 'Almost there'], [100, 'Ready']];
       let p = 0, loaded = false, si = -1;
@@ -4924,6 +5509,12 @@
         fill.style.width = p + '%';
         pct.textContent = String(Math.round(p)).padStart(3, '0');
         if (ring) ring.style.strokeDashoffset = RC * (1 - p / 100);
+        const lit = Math.round(p / 100 * SEGN);
+        segs.forEach((s, k) => {
+          s.classList.toggle('on', k < lit);
+          s.classList.toggle('tip', k === lit - 1);
+        });
+        steps.forEach(li => li.classList.toggle('done', p >= +li.dataset.at));
         let k = 0; for (let i = 0; i < STAGES.length; i++) if (p >= STAGES[i][0]) k = i;
         if (k !== si) { si = k; stage.textContent = STAGES[k][1] }
         if (p >= 100) { clearInterval(t); finish() }
