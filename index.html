@@ -4609,11 +4609,27 @@
     });
 
     /* ---------- ticker ---------- */
-    const TOOLS = [['Python', 't-python.png'], ['R', 't-r.png'], ['SQL', 't-sql.png'], ['Looker Studio', 't-sklearn.png'],
-    ['Tableau', 't-tableau.png'], ['Power BI', 't-powerbi.png'], ['Excel', 't-excel.png'], ['Sheets', 't-sheets.png'], ['SPSS', 't-spss.png']];
-    const srcs = {}; $$('.toolset .tl').forEach((tl, i) => srcs[TOOLS[i][1]] = tl.querySelector('img').src);
-    const chips = ['<span class="tick"><em>29</em> projects</span>', '<span class="tick"><em>2</em> internships</span>', '<span class="tick"><em>3.56</em> GPA</span>'];
-    const row = TOOLS.map(([n, f]) => `<span class="tick"><img src="${srcs[f]}" alt="" loading="lazy" decoding="async">${n}</span>`).concat(chips).join('');
+    const TOOLS = [
+      ['Python', 'assets/python.png'],
+      ['R', 'assets/rstudio.png'],
+      ['SQL', 'assets/sql.png'],
+      ['Looker Studio', 'assets/looker.png'],
+      ['Tableau', 'assets/tableau.png'],
+      ['Power BI', 'assets/powerbi.png'],
+      ['Excel', 'assets/excel.png'],
+      ['Sheets', 'assets/sheet.png'],
+      ['SPSS', 'assets/spss.png']
+    ];
+
+    const chips = [
+      '<span class="tick"><em>29</em> projects</span>',
+      '<span class="tick"><em>2</em> internships</span>',
+      '<span class="tick"><em>3.56</em> GPA</span>'
+    ];
+
+    // Menggunakan variabel 'f' langsung sebagai src gambar
+    const row = TOOLS.map(([n, f]) => `<span class="tick"><img src="${f}" alt="" loading="lazy" decoding="async">${n}</span>`).concat(chips).join('');
+
     $('#tickIn').innerHTML = row + row;
 
     /* ---------- skills heatmap ---------- */
