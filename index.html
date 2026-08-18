@@ -4108,6 +4108,37 @@
     @media(hover:none) {
       .cur, .curr, .curlbl { display: none !important }
     }
+  
+    /* ================= lean backdrop ================= */
+    /* glow painted directly into the layer: a radial gradient is already soft,
+       so the blur filter it used to carry cost raster time for nothing */
+    .aurora {
+      background:
+        radial-gradient(46vw 46vw at 92% -6%, color-mix(in srgb, var(--sig) 20%, transparent), transparent 62%),
+        radial-gradient(38vw 38vw at 6% 104%, color-mix(in srgb, var(--sig) 13%, transparent), transparent 64%);
+      filter: none;
+      animation: none;
+      contain: strict
+    }
+
+    .aurora i { display: none }
+
+    /* grid only — the dot layer and the mask buffer are gone */
+    .plotpaper {
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 110px 110px;
+      opacity: .5;
+      -webkit-mask-image: none;
+      mask-image: none;
+      contain: strict
+    }
+
+    @media(max-width:900px) {
+      .plotpaper { display: none }
+      .aurora { background: radial-gradient(60vw 60vw at 96% -8%, color-mix(in srgb, var(--sig) 16%, transparent), transparent 64%) }
+    }
   </style>
 </head>
 
@@ -4139,9 +4170,7 @@
     </div>
   </div>
   <div class="plotpaper"></div>
-  <div class="guides" aria-hidden="true"></div>
-  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
-  <div class="grain"></div>
+  <div class="aurora" aria-hidden="true"></div>
   <nav class="rail" id="rail" aria-label="Section navigation">
     <a href="#hero" data-s="hero"><i></i><span>Start</span></a>
     <a href="#about" data-s="about"><i></i><span>About</span></a>
@@ -5333,7 +5362,6 @@
     measureStacks(); stackScroll();
 
     /* ---------- pause animations that are scrolled out of view ---------- */
-    if (LOWPOWER) document.querySelectorAll('.aurora i').forEach(b => b.style.animation = 'none');
 
     (function pauseOffscreen() {
       const targets = [...$$('.toolrun'), ...$$('.tick-in'), ...$$('.arch .rings'), ...$$('.tagchip'), ...$$('.avail')];
