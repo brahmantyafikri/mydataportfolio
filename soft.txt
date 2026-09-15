@@ -1,0 +1,135 @@
+
+    /* ============================================================
+       SOFTENING LAYER — curves, float and asymmetry
+       ============================================================ */
+    :root {
+      --r-sm: 10px;
+      --r-md: 18px;
+      --r-lg: 28px;
+      --r-xl: clamp(28px, 4vw, 56px);
+      --r-pill: 999px;
+    }
+
+    /* ---- bands become stacked sheets with a soft shoulder ---- */
+    .band { border-top: 0 }
+    .band.paper, .band.ink {
+      border-radius: var(--r-xl) var(--r-xl) 0 0;
+      margin-top: calc(var(--r-xl) * -1);
+      padding-top: calc(clamp(64px, 8vw, 120px) + var(--r-xl));
+    }
+    .band + .band:not(.paper):not(.ink) {
+      border-radius: var(--r-xl) var(--r-xl) 0 0;
+      margin-top: calc(var(--r-xl) * -1);
+      padding-top: calc(clamp(64px, 8vw, 120px) + var(--r-xl));
+      background: var(--paper-1);
+    }
+    footer {
+      border-top: 0; border-radius: var(--r-xl) var(--r-xl) 0 0;
+      margin-top: calc(var(--r-xl) * -1); padding-top: calc(36px + var(--r-xl));
+      position: relative; z-index: 2;
+    }
+
+    /* ---- the three doors: floating cards, not a hairline table ---- */
+    .doors {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: clamp(14px, 1.6vw, 22px); background: none; border: 0;
+      align-items: start;
+    }
+    .door {
+      border: 1px solid var(--hairline); border-radius: var(--r-lg);
+      box-shadow: var(--shadow-sm); overflow: hidden;
+      transition: background .3s var(--ease), transform .45s var(--ease), box-shadow .45s var(--ease), border-color .45s var(--ease);
+    }
+    .door:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: color-mix(in srgb, var(--d) 45%, transparent) }
+    .door::after { border-radius: 0 0 var(--r-lg) var(--r-lg) }
+    /* a gentle stagger so the row is not a ruler-straight line */
+    @media (min-width: 901px) {
+      .doors .door:nth-child(2) { margin-top: 26px }
+      .doors .door:nth-child(3) { margin-top: 13px }
+    }
+    @media (max-width: 900px) { .doors { grid-template-columns: 1fr } }
+
+    /* ---- panels, panes and overlays lose their corners ---- */
+    .exhibit { border-radius: var(--r-lg); box-shadow: var(--shadow-sm) }
+    .exhibit > header { border-radius: var(--r-lg) var(--r-lg) 0 0 }
+    pre.code { border-radius: var(--r-md) }
+    .metricRows { border-top: 0 }
+    .idcard { border-radius: var(--r-lg); overflow: hidden }
+    .idcard img { border-radius: 0 }
+    #palette .box { border-radius: var(--r-lg) }
+    #case { border-radius: var(--r-xl) 0 0 var(--r-xl) }
+    #peek { border-radius: var(--r-md) }
+    #toast { border-radius: var(--r-pill) }
+    #lb img { border-radius: var(--r-md) }
+    #case .cshots figure { border-radius: var(--r-md); overflow: hidden }
+    .whereCard { border-radius: var(--r-lg) }
+    @media (max-width: 700px) { #case { border-radius: var(--r-xl) var(--r-xl) 0 0 } }
+
+    /* ---- images soften ---- */
+    .stop .shots img { border-radius: var(--r-md) }
+    .stop .org img, .cred img { border-radius: var(--r-pill) }
+    .cred img { padding: 5px }
+    .ticker span, .tools span { border-radius: var(--r-pill) }
+    .stop .tags span, .work .stack span, #case .cstack span { border-radius: var(--r-pill); padding: 4px 12px }
+
+    /* ---- rules fade at the ends instead of butting into the gutter ---- */
+    .workList, .ledger, .creds, .contactLinks, .capIndex, .principles {
+      border-top: 0; position: relative;
+    }
+    .workList::before, .ledger::before, .creds::before, .contactLinks::before,
+    .capIndex::before, .principles::before {
+      content: ''; position: absolute; inset: 0 0 auto 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--hairline-strong) 8%, var(--hairline-strong) 92%, transparent);
+    }
+    .work, .lrow, .cred, .contactLinks a, .cap, .principles div { border-bottom: 0; position: relative }
+    .work::before, .lrow::after, .cred::after, .contactLinks a::before, .cap::after, .principles div::after {
+      content: ''; position: absolute; inset: auto 0 0 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--hairline) 6%, var(--hairline) 94%, transparent);
+    }
+
+    /* rounded hover bed on list rows */
+    .work::before { inset: 0 -18px; height: auto; border-radius: var(--r-md); background: var(--paper-0); opacity: 0; transition: opacity .28s var(--ease) }
+    .work:hover::before, .work:focus-visible::before { opacity: 1 }
+    .band.paper .work::before { background: var(--paper-1) }
+    .work::after { border-radius: var(--r-pill); left: 0; right: 0; bottom: 0 }
+    .lrow { border-radius: var(--r-md) }
+    .lrow:hover { padding-left: 14px }
+    .lrow::before { border-radius: var(--r-pill) }
+    .contactLinks a { border-radius: var(--r-md) }
+
+    /* ---- soft organic blobs behind the deep bands ---- */
+    .band.ink::after, #top::after {
+      content: ''; position: absolute; pointer-events: none; z-index: 0;
+      width: 46vw; height: 46vw; max-width: 620px; max-height: 620px;
+      right: -12vw; top: 8%;
+      background: radial-gradient(circle at 40% 40%, color-mix(in srgb, var(--acc-v) 16%, transparent), transparent 62%);
+      border-radius: 62% 38% 47% 53% / 44% 56% 44% 56%;
+      filter: blur(34px); animation: blob 22s ease-in-out infinite alternate;
+    }
+    #top::after { left: -14vw; right: auto; top: 34%;
+      background: radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--acc-b) 14%, transparent), transparent 62%); }
+    @keyframes blob {
+      0% { border-radius: 62% 38% 47% 53% / 44% 56% 44% 56%; transform: translate3d(0, 0, 0) rotate(0deg) }
+      50% { border-radius: 41% 59% 63% 37% / 58% 41% 59% 42%; transform: translate3d(-3%, 4%, 0) rotate(8deg) }
+      100% { border-radius: 55% 45% 36% 64% / 50% 62% 38% 50%; transform: translate3d(2%, -3%, 0) rotate(-6deg) }
+    }
+
+    /* ---- specimen strip: pill cells instead of a ruled table ---- */
+    .specimen { border-top: 0; gap: 10px }
+    .specimen div {
+      border-right: 0; border: 1px solid var(--hairline); border-radius: var(--r-md);
+      padding: 20px 22px 22px; background: color-mix(in srgb, var(--paper-0) 55%, transparent);
+      transition: transform .35s var(--ease), border-color .35s var(--ease), background .35s var(--ease);
+    }
+    .specimen div:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--signal) 40%, transparent) }
+    @media (max-width: 760px) { .specimen div:nth-child(-n+2) { border-bottom: 1px solid var(--hairline) } }
+
+    /* ---- nav + chrome ---- */
+    .kbtn, .tbtn { border-radius: var(--r-pill) }
+    .toolbar button { border-radius: var(--r-pill) }
+    #drawer a { border-bottom: 0; border-radius: var(--r-md); padding-left: 14px; padding-right: 14px }
+    #drawer a:hover { background: var(--paper-0) }
+
+    @media (prefers-reduced-motion: reduce) {
+      .band.ink::after, #top::after { animation: none }
+    }
