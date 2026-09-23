@@ -1,0 +1,19 @@
+# Secrets — never commit
+recovery-codes.txt
+*.env
+.env*
+
+# Local-only working files
+_archive/
+
+# Machine-local tool settings
+.claude/settings.local.json
+
+# Dependencies and build output
+node_modules/
+.vercel/
+
+# OS cruft
+.DS_Store
+Thumbs.db
+desktop.ini

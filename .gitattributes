@@ -1,0 +1,16 @@
+# Normalise line endings for source text only
+*.html   text eol=lf
+*.md     text eol=lf
+*.json   text eol=lf
+
+# Data and notebooks: keep bytes exactly as they are
+*.csv    -text
+*.txt    -text
+*.ipynb  -text
+
+# Binaries
+*.pdf    binary
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.webp   binary

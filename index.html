@@ -1973,7 +1973,7 @@
       }
 
       #plot {
-        min-width: 660px
+        min-width: 860px
       }
     }
 
@@ -1997,7 +1997,7 @@
     }
 
     #plot .name {
-      font-size: 11px;
+      font-size: 10px;
       transition: fill .2s
     }
 
@@ -4148,11 +4148,12 @@
               <li>Exploratory analysis</li>
               <li>Statistics &amp; inference</li>
               <li>Hypothesis testing</li>
-              <li>Dashboarding</li>
+              <li>Nonparametric tests</li>
+              <li>Power BI</li>
               <li>Executive reporting</li>
               <li>Excel &amp; Sheets</li>
             </ul>
-            <button class="more" type="button" data-door="analytics">3 projects <i
+            <button class="more" type="button" data-door="analytics">5 projects <i
                 class="ph ph-arrow-right"></i></button>
           </article>
           <article class="cell c-b spot">
@@ -4165,13 +4166,14 @@
             <ul class="chips">
               <li>Clustering &amp; segmentation</li>
               <li>Regression &amp; SVR</li>
+              <li>Random forests &amp; trees</li>
               <li>Gradient boosting</li>
               <li>CNN &amp; ResNet</li>
               <li>Vision Transformers</li>
               <li>Grad-CAM &amp; XAI</li>
               <li>Forecasting</li>
             </ul>
-            <button class="more" type="button" data-door="ml">3 projects <i class="ph ph-arrow-right"></i></button>
+            <button class="more" type="button" data-door="ml">4 projects <i class="ph ph-arrow-right"></i></button>
           </article>
           <article class="cell c-c spot">
             <span class="tag">NLP &amp; language</span>
@@ -4183,9 +4185,10 @@
               <li>IndoBERT</li>
               <li>T5 summarization</li>
               <li>Cross-lingual</li>
+              <li>Content analysis</li>
               <li>Scraping</li>
             </ul>
-            <button class="more" type="button" data-door="nlp">3 projects <i class="ph ph-arrow-right"></i></button>
+            <button class="more" type="button" data-door="nlp">4 projects <i class="ph ph-arrow-right"></i></button>
           </article>
           <article class="cell c-d spot">
             <div class="bgimg" aria-hidden="true"><img src="assets/telkomselrag.png" alt="" loading="lazy"
@@ -4280,7 +4283,7 @@
           <header class="panel-head">
             <div>
               <h3>Business impact and technical depth</h3>
-              <p>Ten projects in four categories, each scored 0 to 100</p>
+              <p>Fourteen projects in four categories, each scored 0 to 100</p>
             </div>
             <div class="legend" id="legend" role="group" aria-label="Filter the chart by category">
               <button class="on" type="button" data-cat="all"><i style="--sw:var(--ink-0)"></i>All</button>
@@ -4293,7 +4296,7 @@
           <div class="panel-body">
             <div class="chartWrap">
               <svg id="plot" viewBox="0 0 1000 380" preserveAspectRatio="xMidYMid meet" role="img"
-                aria-label="Column chart of ten portfolio projects ranked by business impact, with technical depth drawn as a line on the same 0 to 100 scale"></svg>
+                aria-label="Column chart of fourteen portfolio projects ranked by business impact, with technical depth drawn as a line on the same 0 to 100 scale"></svg>
               <div id="tip" role="status" aria-live="polite"></div>
             </div>
             <div class="chart-foot">
@@ -4339,12 +4342,12 @@
 <span class="k">GROUP</span> <span class="k">BY</span> customer_id
 <span class="k">HAVING</span> <span class="k">SUM</span>(premium) &gt; <span class="n">0</span>;
 
-<span class="c"># 2. model it, then check it disagrees with you</span>
+<span class="c"># 2. model it, then report the score you actually got</span>
 km = KMeans(n_clusters=<span class="n">4</span>, random_state=<span class="n">42</span>).fit(rfm_scaled)
-silhouette_score(rfm_scaled, km.labels_)   <span class="c"># 0.58</span>
+silhouette_score(rfm_scaled, km.labels_)   <span class="c"># 0.275 - weak, say so</span>
 
 <span class="c"># 3. name the segments in the stakeholder's language</span>
-labels = [<span class="s">'loyal'</span>, <span class="s">'newcomer'</span>, <span class="s">'at-risk'</span>, <span class="s">'high-risk'</span>]</pre>
+labels = [<span class="s">'loyal high value'</span>, <span class="s">'new comer'</span>, <span class="s">'at-risk loyal'</span>, <span class="s">'low value'</span>]</pre>
             <div class="method">
               <p>Clean first, model second, translate third. The third step is the one that gets skipped, and it is the
                 only one the business actually pays for.</p>
@@ -4368,17 +4371,20 @@ labels = [<span class="s">'loyal'</span>, <span class="s">'newcomer'</span>, <sp
           </header>
           <div class="panel-body">
             <div class="record stg">
-              <div class="rec"><b>19/19</b><span>Telkomsel RAG test scenarios passed</span></div>
-              <div class="rec"><b data-count="5">5</b><span>n8n workflows shipped</span></div>
-              <div class="rec"><b><span data-count="150000">150,000</span>+</b><span>AXA customer records
+              <div class="rec"><b>19/19</b><span>Telkomsel RAG black-box scenarios passed</span></div>
+              <div class="rec"><b data-count="5">5</b><span>n8n workflows shipped at Telkomsel</span></div>
+              <div class="rec"><b><span data-count="150000">150,000</span></b><span>AXA policies profiled and
                   segmented</span></div>
               <div class="rec"><b><span data-count="95">95</span>%</b><span>Vehicle classifier accuracy with
                   ResNet50</span></div>
-              <div class="rec"><b>0.499</b><span>ROUGE-1 on health question summarization</span></div>
-              <div class="rec"><b>0.55</b><span>SVR R&sup2; on the spatial welfare model</span></div>
+              <div class="rec"><b><span data-count="96.3" data-dec="1">96.3</span>%</b><span>Nutri-Score accuracy with
+                  Random Forest</span></div>
+              <div class="rec"><b>0.499</b><span>ROUGE-1 after fine-tuning UnifiedQA-T5</span></div>
+              <div class="rec"><b>0.59</b><span>SVR R&sup2; on the spatial welfare model</span></div>
               <div class="rec"><b>p = 0.001</b><span>Moran&rsquo;s I spatial significance</span></div>
-              <div class="rec"><b><span data-count="1100">1,100</span>+</b><span>Instagram captions classified, plus
-                  1,600+ comments</span></div>
+              <div class="rec"><b><span data-count="1076">1,076</span></b><span>Instagram captions classified, plus
+                  1,692 comments</span></div>
+              <div class="rec"><b>5.5 pts</b><span>Rural over urban poverty gap, p &lt; 0.001</span></div>
               <div class="rec"><b><span data-count="100">100</span>%</b><span>BeData internship completion score</span>
               </div>
               <div class="rec"><b><span data-count="85.3" data-dec="1">85.3</span>%</b><span>Survey respondents who rate
@@ -4393,7 +4399,7 @@ labels = [<span class="s">'loyal'</span>, <span class="s">'newcomer'</span>, <sp
     <section class="sec" id="work">
       <div class="shell">
         <div class="sec-head">
-          <h2 class="h2 rv">Ten projects, in order of what they <em>moved</em>.</h2>
+          <h2 class="h2 rv">Fourteen projects, in order of what they <em>moved</em>.</h2>
           <p class="lead rv">Open any row for the full case: method, stack and the visuals that came out of it.</p>
         </div>
 
@@ -4403,115 +4409,142 @@ labels = [<span class="s">'loyal'</span>, <span class="s">'newcomer'</span>, <sp
           <button type="button" data-f="ml">ML &amp; deep learning</button>
           <button type="button" data-f="nlp">NLP</button>
           <button type="button" data-f="genai">GenAI</button>
-          <span class="count" id="workCount" role="status" aria-live="polite">10 shown</span>
+          <span class="count" id="workCount" role="status" aria-live="polite">14 shown</span>
         </div>
 
         <div class="workList rv" id="workList">
 
           <button class="work" type="button" id="p1" data-cat="genai" data-kind="GenAI &middot; RAG"
             data-role="Network Analytics intern at Telkomsel" data-year="2025" data-title="Telkomsel Chatbot RAG"
-            data-metric="19/19 test scenarios passed" data-stack="Python|RAG|n8n|Supabase|DeepSeek/Ollama"
-            data-desc="Validated an internal RAG chatbot pipeline built on DeepSeek/Ollama with a Supabase vector store, working through 19 functional test scenarios covering retrieval accuracy, fallback behaviour and response grounding. Alongside the QA work I analysed document query logs to find where staff were repeatedly asking the same things, and built five n8n automation workflows to take those manual reporting steps out of the loop. The final deliverable was a live demo of the Telkomsel AI Assistant to division stakeholders."
-            data-imgs="assets/telkomselrag.png|assets/img/p-telkomsel-2.jpg|assets/img/p-telkomsel-1.jpg"
-            data-caps="The assistant pipeline|Final presentation of the AI Assistant|At the Telkomsel Jakarta office">
+            data-metric="19/19 black-box scenarios passed"
+            data-stack="Python|n8n|Supabase pgvector|DeepSeek via Ollama|Whisper|RAG"
+            data-desc="An internal knowledge assistant built to run entirely on Telkomsel infrastructure, so company documents never leave it: n8n orchestrates the pipeline, DeepSeek answers locally through Ollama, and embeddings are stored in a Supabase vector database. I ran the black-box suite over it &mdash; 19 scenarios covering document upload, answers grounded in the source, out-of-context questions, multi-turn memory, the podcast generator and the web-scraping workflow &mdash; and all 19 passed. Workflow performance was measured rather than assumed: 18.57 seconds to embed and upsert a document, 1.7 seconds to extract text, 5.37 seconds per chat turn. Five n8n workflows took manual reporting steps out of the loop, and the finished assistant was demoed to division stakeholders."
+            data-imgs="assets/telkomselrag.png|assets/img/pr-rag-1.webp|assets/img/pr-rag-2.webp|assets/img/pr-rag-3.webp|assets/img/p-telkomsel-2.jpg|assets/img/p-telkomsel-1.jpg"
+            data-caps="The assistant, end to end|The product: upload a document, ask, listen back|Five n8n workflows behind a single answer|Retrieval grounded in the uploaded PDF|Final presentation of the AI Assistant|At the Telkomsel Jakarta office">
             <span class="n">01</span>
             <span class="body">
               <span class="kind">GenAI &middot; RAG</span>
               <h3>Telkomsel Chatbot RAG</h3>
-              <span class="sum">A retrieval pipeline taken through 19 functional test scenarios, plus five n8n workflows
-                replacing manual reporting.</span>
+              <span class="sum">A retrieval pipeline that never leaves the company network, taken through 19 black-box
+                scenarios and five n8n workflows.</span>
             </span>
             <span class="metric">19/19 scenarios<br>passed</span>
             <span class="go" aria-hidden="true"><i class="ph ph-arrow-right"></i></span>
             <img class="thumb" src="assets/telkomselrag.png" alt="" loading="lazy" decoding="async">
           </button>
 
-          <button class="work" type="button" id="p7" data-cat="analytics" data-kind="Customer analytics"
-            data-role="Consulting-style project" data-year="2025" data-title="SMART-RFM Segmentation for AXA"
-            data-metric="150,000+ customer records" data-stack="Scikit-learn|K-Means|RFM|PMBOK"
-            data-desc="Insurance customers segmented with RFM scoring and K-Means into loyal, newcomer, at-risk and high-risk groups. The analysis was wrapped as a PMBOK-style consulting deliverable rather than a notebook: scope, RACI matrix, budget plan and a recommendation per segment, so the client could act on it without a data person in the room."
-            data-imgs="assets/rfm.png" data-caps="RFM and K-Means customer segments">
+          <button class="work" type="button" id="p7" data-cat="analytics" data-kind="Customer analytics &middot; BI"
+            data-role="Consulting-style project" data-year="2025" data-title="AXA Policy Book &amp; SMART-RFM"
+            data-metric="150,000 policies across 5 dashboard pages"
+            data-stack="Power BI|Scikit-learn|K-Means|RFM|Streamlit|PMBOK"
+            data-desc="A consulting engagement on a 150,000-policy insurance book, delivered in two halves. The first is a five-page Power BI dashboard &mdash; overview, customer profile, policy and exposure, service and engagement, data quality &mdash; covering $273M of premium and $40bn of coverage. The second is segmentation: RFM features built from renewal recency, policy tenure and premium, then K-Means. Four clusters came out of the first feature combination (silhouette 0.275, DBI 1.17) and three out of the second (silhouette 0.264, DBI 1.35). Both are weak separation and the report says so rather than dressing it up &mdash; the segments are usable for targeting, but they overlap and need monitoring. The data-quality page is the one I would put in front of a stakeholder first: the highest Cram&eacute;r&rsquo;s V across every feature-target pair is 0.0061, mean credit score is identical at 689 in all three risk tiers, and premium correlates with coverage at 0.0026. The risk profile in this book carries no measurable signal, which is worth knowing before anyone prices against it. Packaged as a PMBOK deliverable with scope, RACI, budget and a named strategy per segment."
+            data-imgs="assets/img/pr-axa-1.webp|assets/img/pr-axa-2.webp|assets/img/pr-axa-3.webp|assets/img/pr-axa-4.webp|assets/img/pr-axa-5.webp|assets/rfm.png"
+            data-caps="Overview: 150K customers, $273M premium, $40bn covered|Customer profile by age, occupation and preferred channel|Policy and exposure, with 37.5K renewals inside 90 days|Service contacts, claim history and driving record|Data quality: where the signal is not|RFM clusters and the strategy named for each one">
             <span class="n">02</span>
             <span class="body">
-              <span class="kind">Customer analytics</span>
-              <h3>SMART-RFM Segmentation for AXA</h3>
-              <span class="sum">RFM and K-Means segmentation delivered as a full consulting report, not a
-                notebook.</span>
+              <span class="kind">Customer analytics &middot; BI</span>
+              <h3>AXA Policy Book &amp; SMART-RFM</h3>
+              <span class="sum">A five-page Power BI policy book and RFM segmentation &mdash; plus the page that shows
+                the risk profile carries no signal at all.</span>
             </span>
-            <span class="metric">150,000+<br>records</span>
+            <span class="metric">150,000 policies<br>5 dashboard pages</span>
             <span class="go" aria-hidden="true"><i class="ph ph-arrow-right"></i></span>
-            <img class="thumb" src="assets/rfm.png" alt="" loading="lazy" decoding="async">
+            <img class="thumb" src="assets/img/pr-axa-1.webp" alt="" loading="lazy" decoding="async">
+          </button>
+
+          <button class="work" type="button" id="p11" data-cat="ml" data-kind="Medical imaging &middot; XAI"
+            data-role="Undergraduate thesis" data-year="2026" data-title="NSCLC Stage Classification"
+            data-metric="ViT-B/32 macro F1 0.432, best of six configurations"
+            data-stack="PyTorch|DenseNet121|ViT-B/16|ViT-B/32|Grad-CAM"
+            data-desc="Undergraduate thesis staging non-small-cell lung cancer from CT volumes, benchmarking a CNN (DenseNet121) against two Vision Transformers (ViT-B/16 and ViT-B/32), each at 5 and 31 slices per patient. The useful result is that accuracy and macro F1 pick different winners: DenseNet121 on 5 slices has the highest accuracy at 0.726, but ViT-B/32 on 5 slices has the best macro F1 at 0.432 &mdash; and on data this imbalanced, macro F1 is the honest number. The confusion matrix explains why: Stage II is never predicted at all, because a model can score respectably by collapsing the minority class into Stage III. Grad-CAM was run over the attributions to check the activations sit on lung tissue rather than on the scanner table or the body outline. Feeding in more slices made every architecture worse, not better, which is the second finding worth carrying forward."
+            data-imgs="assets/thesis.png|assets/img/pr-nsclc-1.webp|assets/img/pr-nsclc-2.webp|assets/img/pr-nsclc-3.webp|assets/img/pr-nsclc-4.webp|assets/img/pr-nsclc-5.webp|assets/img/pr-nsclc-6.webp"
+            data-caps="NSCLC staging pipeline|Grad-CAM on ViT-B/16: activation on lung tissue, not the table|Six architecture and slice-count combinations compared|Confusion matrix: Stage II is never predicted|Training and validation loss, best epoch 26|The augmentation set applied to every slice|The thesis, Universitas Airlangga 2026">
+            <span class="n">03</span>
+            <span class="body">
+              <span class="kind">Medical imaging &middot; XAI</span>
+              <h3>NSCLC Stage Classification</h3>
+              <span class="sum">A CNN against two Vision Transformers on imbalanced CT data, where accuracy and macro
+                F1 name different winners.</span>
+            </span>
+            <span class="metric">macro F1 0.432<br>ViT-B/32</span>
+            <span class="go" aria-hidden="true"><i class="ph ph-arrow-right"></i></span>
+            <img class="thumb" src="assets/thesis.png" alt="" loading="lazy" decoding="async">
           </button>
 
           <button class="work" type="button" id="p2" data-cat="analytics" data-kind="Econometrics &middot; Spatial"
             data-role="Research project" data-year="2024" data-title="HDI, Unemployment &amp; Poverty"
-            data-metric="SVR R² 0.55, Moran's I p = 0.001" data-stack="Python|R|Spatial Error/Lag|SVR|K-Means++"
-            data-desc="Welfare patterns across Indonesian provinces using BPS data for 2022-2024. Because provinces are not independent observations, the model had to account for spatial autocorrelation (Moran's I confirmed it at p = 0.001), so Spatial Error and Spatial Lag models were fitted alongside Support Vector Regression, with K-Means++ clustering used to group provinces by welfare profile."
-            data-imgs="assets/hdi.png|assets/img/pr-hdi-1.jpg|assets/img/pr-hdi-2.jpg"
-            data-caps="Provincial welfare overview|Average poverty rate by province|Spearman correlation matrix">
-            <span class="n">03</span>
+            data-metric="SVR R&sup2; 0.59, Moran&rsquo;s I p = 0.001"
+            data-stack="Python|R|SVR|Spatial Error/Lag|K-Means++|GeoPandas"
+            data-desc="Welfare across every Indonesian province, 2022 to 2024, on BPS data. Provinces are not independent observations and Moran&rsquo;s I confirmed it at p = 0.001, so plain regression would have been the wrong instrument. Spatial Error and Spatial Lag models were fitted alongside Support Vector Regression under several target transformations; Yeo-Johnson with SVR gave the best overall fit at R&sup2; 0.59, and among the spatial specifications the Spatial Error Model won at R&sup2; 0.26. Under SEM only HDI significantly predicts poverty (p = 0.027) &mdash; open unemployment does not (p = 0.198), which runs against the intuition most people bring to the question. K-Means++ then sorted the provinces into five welfare profiles (silhouette 0.389), each with its own policy recommendation, because one national program does not fit a map where Papua and NTT sit at one end and Java and Sumatra at the other."
+            data-imgs="assets/hdi.png|assets/img/pr-hdi-3.webp|assets/img/pr-hdi-1.jpg|assets/img/pr-hdi-2.jpg|assets/img/pr-hdi-4.webp"
+            data-caps="Provincial welfare overview|Thematic map: poverty concentrated in the east|Spearman correlation between HDI, unemployment and poverty|Five province clusters across the three indicators|A different policy recommendation for each cluster">
+            <span class="n">04</span>
             <span class="body">
               <span class="kind">Econometrics &middot; Spatial</span>
               <h3>HDI, Unemployment &amp; Poverty</h3>
-              <span class="sum">Provincial welfare modelled with spatial regression once Moran&rsquo;s I proved the
-                provinces weren&rsquo;t independent.</span>
+              <span class="sum">Provincial welfare modelled spatially once Moran&rsquo;s I proved the provinces
+                weren&rsquo;t independent &mdash; and unemployment turned out not to matter.</span>
             </span>
-            <span class="metric">SVR R&sup2; 0.55<br>p = 0.001</span>
+            <span class="metric">SVR R&sup2; 0.59<br>p = 0.001</span>
             <span class="go" aria-hidden="true"><i class="ph ph-arrow-right"></i></span>
             <img class="thumb" src="assets/hdi.png" alt="" loading="lazy" decoding="async">
           </button>
 
           <button class="work" type="button" id="p4" data-cat="nlp" data-kind="Competitive intelligence"
             data-role="Market analysis" data-year="2025" data-title="Instagram Competitor Analysis"
-            data-metric="1,100+ captions, 1,600+ comments" data-stack="Python|Rule-based NLP|Scraping"
-            data-desc="Captions and comments from five research firms scraped and classified by call-to-action type, target market and audience intent. Reading the classified output side by side surfaced which competitor was most sales-driven, and where the positioning gaps were that nobody in the set was speaking to."
-            data-imgs="assets/market.png|assets/img/pr-ig-2.jpg|assets/img/pr-ig-3.jpg|assets/img/pr-ig-4.jpg"
-            data-caps="Competitor content analysis|Website signal coverage per competitor|Comments per month|Likes per month">
-            <span class="n">04</span>
+            data-metric="1,076 captions and 1,692 comments classified"
+            data-stack="Python|Apify|Rule-based NLP|Power BI"
+            data-desc="Six Indonesian research and data firms &mdash; Compas, Populix, BeData, Frontier, Infovesta and Poltracking &mdash; scraped from Instagram and the open web, then read as one competitive set. 1,076 captions were classified by call-to-action, target market and message type, with 1,692 comments pulled alongside them. The classified output separates the field cleanly: Compas is the most sales-driven, with 46.2% of captions carrying a sales-led CTA and 97.6% aimed at a business audience, while Poltracking runs almost no CTA at all (97.1% none) and speaks to government and politics. Populix leads on respondent acquisition at 27.8%. The gap nobody in the set was working is a general, non-corporate audience approached with a product-led message. Delivered as a four-page Power BI monitoring dashboard, so the client could keep watching the set after the report was handed over."
+            data-imgs="assets/market.png|assets/img/pr-ig-5.webp|assets/img/pr-ig-6.webp|assets/img/pr-ig-7.webp|assets/img/pr-ig-8.webp|assets/img/pr-ig-2.jpg|assets/img/pr-ig-3.jpg|assets/img/pr-ig-4.jpg"
+            data-caps="Competitor content analysis|Dashboard overview: 668 posts, 79K likes, 2K comments|Content performance by brand, post type and weekday|Comment analysis and word cloud, brand by brand|Brand detail: timeline, post-type mix and best day to post|Website signal coverage per competitor|Comments per month|Likes per month">
+            <span class="n">05</span>
             <span class="body">
               <span class="kind">Competitive intelligence</span>
               <h3>Instagram Competitor Analysis</h3>
-              <span class="sum">Five firms&rsquo; captions and comments classified by CTA, market and intent to expose
-                positioning gaps.</span>
+              <span class="sum">Six firms&rsquo; captions and comments classified by CTA, market and intent, then handed
+                over as a live Power BI monitor.</span>
             </span>
-            <span class="metric">1,100+ captions<br>1,600+ comments</span>
+            <span class="metric">1,076 captions<br>1,692 comments</span>
             <span class="go" aria-hidden="true"><i class="ph ph-arrow-right"></i></span>
             <img class="thumb" src="assets/market.png" alt="" loading="lazy" decoding="async">
           </button>
 
-          <button class="work" type="button" id="p11" data-cat="ml" data-kind="Medical imaging &middot; XAI"
-            data-role="Undergraduate thesis" data-year="2026" data-title="NSCLC Stage Classification"
-            data-metric="CNN vs ViT benchmark" data-stack="PyTorch|CNN|Vision Transformer|Grad-CAM"
-            data-desc="Undergraduate thesis benchmarking a CNN against a Vision Transformer on severely imbalanced CT data for non-small-cell lung cancer staging. Accuracy alone is misleading on imbalanced medical data, so Grad-CAM was used to verify that the model's decisions actually rested on the relevant regions of the scan rather than on incidental artefacts."
-            data-imgs="assets/thesis.png" data-caps="NSCLC stage classification">
-            <span class="n">05</span>
-            <span class="body">
-              <span class="kind">Medical imaging &middot; XAI</span>
-              <h3>NSCLC Stage Classification</h3>
-              <span class="sum">CNN against Vision Transformer on imbalanced CT data, with Grad-CAM checking the model
-                looked in the right place.</span>
-            </span>
-            <span class="metric">CNN vs ViT<br>benchmark</span>
-            <span class="go" aria-hidden="true"><i class="ph ph-arrow-right"></i></span>
-            <img class="thumb" src="assets/thesis.png" alt="" loading="lazy" decoding="async">
-          </button>
-
           <button class="work" type="button" id="p3" data-cat="ml" data-kind="Deep learning &middot; Vision"
             data-role="Applied project" data-year="2024" data-title="Vehicle Type Classification"
-            data-metric="95% test accuracy with ResNet50" data-stack="TensorFlow|CNN|ResNet50|VGG19"
-            data-desc="A baseline CNN, ResNet50 and VGG19 benchmarked on 1,961 images to classify cars, buses and trucks for automated toll gate classification. ResNet50 came out ahead at 95% test accuracy; the confusion matrix and class distribution were reviewed together to confirm the result wasn't an artefact of class imbalance."
-            data-imgs="assets/vehicle.png|assets/img/pr-vehicle-2.jpg|assets/img/pr-vehicle-3.jpg|assets/img/pr-vehicle-4.jpg"
-            data-caps="Vehicle classification results|Real-world prediction samples|ResNet50 accuracy and loss|Confusion matrix">
+            data-metric="95% test accuracy with ResNet50, 29% from scratch"
+            data-stack="TensorFlow|CNN|ResNet50|VGG19|Transfer learning"
+            data-desc="Cars, buses and trucks classified for automated toll-gate sorting, on 1,961 scraped images with 393 held out for testing. Three architectures were trained under identical conditions: a CNN built from scratch, VGG19 and ResNet50. The scratch CNN reached 29%, barely above chance on three classes, while VGG19 hit 93% and ResNet50 95%. That gap is the actual result &mdash; at this dataset size transfer learning is not an optimisation, it is the difference between a working classifier and a broken one. The confusion matrix shows the residual errors are all bus-and-truck confusions (6 buses read as trucks, 5 trucks as buses) and never a car mistaken for either, which is the failure mode a toll operator can live with. On a night-time photo of a decorated truck, only the scratch CNN got it wrong."
+            data-imgs="assets/vehicle.png|assets/img/pr-vehicle-5.webp|assets/img/pr-vehicle-2.jpg|assets/img/pr-vehicle-3.jpg|assets/img/pr-vehicle-4.jpg"
+            data-caps="Vehicle classification results|The same three photos through all three models|ResNet50 accuracy and loss across ten epochs|Confusion matrix: only bus and truck are ever confused|Class balance across the 1,961 images">
             <span class="n">06</span>
             <span class="body">
               <span class="kind">Deep learning &middot; Vision</span>
               <h3>Vehicle Type Classification</h3>
-              <span class="sum">Three architectures benchmarked on 1,961 images for automated toll gate
-                classification.</span>
+              <span class="sum">Three architectures on 1,961 images: 29% from scratch, 95% with ResNet50. The gap is
+                the finding.</span>
             </span>
             <span class="metric">95% accuracy<br>ResNet50</span>
             <span class="go" aria-hidden="true"><i class="ph ph-arrow-right"></i></span>
             <img class="thumb" src="assets/vehicle.png" alt="" loading="lazy" decoding="async">
+          </button>
+
+          <button class="work" type="button" id="p9" data-cat="nlp" data-kind="NLP &middot; Transfer learning"
+            data-role="Applied research" data-year="2025" data-title="Health Question Summarization"
+            data-metric="ROUGE-1 lifted from 0.298 to 0.499 by fine-tuning"
+            data-stack="UnifiedQA-T5|mT5|mBART-50|Pegasus|ROUGE &amp; BLEU"
+            data-desc="Indonesian consumer health questions arrive long and rambling, which makes a telemedicine triage queue slow to read, so this study compressed each one into a single answerable question. Six pre-trained summarizers were benchmarked before any fine-tuning &mdash; Msmarco-mT5, Cendol-mT5, T5-Large, mBART-large-50, Pegasus and UnifiedQA-T5 &mdash; each scored with and without stopword removal on ROUGE-1, ROUGE-2, ROUGE-L and BLEU. UnifiedQA-T5 led on every ROUGE metric (0.2982, 0.0810, 0.2496) while Pegasus collapsed to ROUGE-1 0.0403. Fine-tuning the winner lifted ROUGE-1 from 0.2982 to 0.4992, ROUGE-2 to 0.28 and ROUGE-L to 0.4760 &mdash; a 67% relative gain from the fine-tune alone. Scoring question by question shows where it still fails: vague inputs like &lsquo;how do I deal with it?&rsquo; score 0.000, while specific ones reach 0.46."
+            data-imgs="assets/health.png|assets/img/pr-health-1.webp|assets/img/pr-health-2.webp|assets/img/pr-health-3.webp|assets/img/pr-health-4.webp|assets/img/pr-health-5.webp"
+            data-caps="Health question summarization output|The pipeline: preprocess, benchmark six models, fine-tune the best|Model comparison and the fine-tuned result|Every model scored with and without stopword removal|Sample summaries scored individually by ROUGE-1|The paper">
+            <span class="n">07</span>
+            <span class="body">
+              <span class="kind">NLP &middot; Transfer learning</span>
+              <h3>Health Question Summarization</h3>
+              <span class="sum">Six summarizers benchmarked on Indonesian health questions, then the winner fine-tuned
+                from 0.298 to 0.499 ROUGE-1.</span>
+            </span>
+            <span class="metric">ROUGE-1<br>0.499</span>
+            <span class="go" aria-hidden="true"><i class="ph ph-arrow-right"></i></span>
+            <img class="thumb" src="assets/health.png" alt="" loading="lazy" decoding="async">
           </button>
 
           <button class="work" type="button" id="p8" data-cat="ml" data-kind="Time series" data-role="Applied project"
@@ -4519,7 +4552,7 @@ labels = [<span class="s">'loyal'</span>, <span class="s">'newcomer'</span>, <sp
             data-stack="LSTM|XGBoost|Flask"
             data-desc="A hybrid forecaster pairing an LSTM for long-term trend with XGBoost for short-term volatility, since neither model handles both well alone. Deployed as a Flask web application so the forecast could be queried directly rather than re-run in a notebook."
             data-imgs="assets/bitcoin.png" data-caps="Hybrid LSTM and XGBoost forecast">
-            <span class="n">07</span>
+            <span class="n">08</span>
             <span class="body">
               <span class="kind">Time series</span>
               <h3>Crypto Price Prediction</h3>
@@ -4530,35 +4563,98 @@ labels = [<span class="s">'loyal'</span>, <span class="s">'newcomer'</span>, <sp
             <img class="thumb" src="assets/bitcoin.png" alt="" loading="lazy" decoding="async">
           </button>
 
-          <button class="work" type="button" id="p9" data-cat="nlp" data-kind="NLP &middot; Transfer learning"
-            data-role="Applied research" data-year="2025" data-title="Health Question Summarization"
-            data-metric="ROUGE-1 0.499" data-stack="UnifiedQA-T5|ROUGE|Transfer learning"
-            data-desc="UnifiedQA-T5 fine-tuned to summarize Indonesian consumer health questions so a telemedicine triage queue can be read quickly. Measured against the other models tested it scored best, reaching ROUGE-1 0.499."
-            data-imgs="assets/health.png" data-caps="Health question summarization output">
-            <span class="n">08</span>
+          <button class="work" type="button" id="p13" data-cat="ml" data-kind="Classification &middot; Nutrition"
+            data-role="Data mining project" data-year="2024" data-title="Nutri-Score Classification"
+            data-metric="96.3% accuracy, macro F1 0.960"
+            data-stack="Python|Scikit-learn|Random Forest|Decision Tree|EDA"
+            data-desc="449 packaged beverages graded A to E on the European Nutri-Score scale, predicted from nine per-100ml nutrition fields. The dataset arrived dirty &mdash; energy stored as text like &lsquo;1,577 kj (373 kcal)&rsquo;, missing values written as a question mark, quantities prefixed with a less-than sign &mdash; so most of the work was parsing free text back into numbers before any model could see it. Every numeric field turned out right-skewed, which the boxplots make plain. Random Forest reached 96.3% accuracy with macro F1 0.960; a single Decision Tree managed 95.6% and macro F1 0.955, close enough that the simpler model stays defensible when someone has to explain a grade. The two disagree about why: Random Forest spreads importance across fat, energy, protein and saturated fat, while the Decision Tree puts 77% of its weight on fat alone. Sugar contributes almost nothing in either, because it is already carried by the energy column."
+            data-imgs="assets/img/pr-nutri-1.webp|assets/img/pr-nutri-4.webp|assets/img/pr-nutri-3.webp|assets/img/pr-nutri-2.webp|assets/img/pr-nutri-5.webp|assets/img/pr-nutri-6.webp"
+            data-caps="Pearson correlation and the A-to-E class balance|Random Forest confusion matrix, 96.3% accuracy|Random Forest importance, spread across four fields|Decision Tree confusion matrix, 95.6% accuracy|Decision Tree importance: 77% on fat alone|Every nutrition field is right-skewed">
+            <span class="n">09</span>
             <span class="body">
-              <span class="kind">NLP &middot; Transfer learning</span>
-              <h3>Health Question Summarization</h3>
-              <span class="sum">T5 fine-tuned on Indonesian consumer health questions for telemedicine triage.</span>
+              <span class="kind">Classification &middot; Nutrition</span>
+              <h3>Nutri-Score Classification</h3>
+              <span class="sum">449 beverages graded A to E from their nutrition labels, once the labels were parsed
+                back into numbers.</span>
             </span>
-            <span class="metric">ROUGE-1<br>0.499</span>
+            <span class="metric">96.3% accuracy<br>macro F1 0.960</span>
             <span class="go" aria-hidden="true"><i class="ph ph-arrow-right"></i></span>
-            <img class="thumb" src="assets/health.png" alt="" loading="lazy" decoding="async">
+            <img class="thumb" src="assets/img/pr-nutri-1.webp" alt="" loading="lazy" decoding="async">
           </button>
 
           <button class="work" type="button" id="p12" data-cat="nlp" data-kind="Cross-lingual NLP"
             data-role="Social listening study" data-year="2026" data-title="AI Agent Sentiment: Global vs Indonesia"
-            data-metric="Global swing of roughly 80%" data-stack="Python|Cross-lingual NLP|Scraping"
-            data-desc="How English and Indonesian audiences on X/Twitter talked about a newly released AI agent over a 20-day window. Tracking net sentiment, volume spikes and dominant narratives separately per language showed the global conversation swinging roughly 80% while the Indonesian one stayed stable neutral-positive throughout. Same product, two very different receptions."
-            data-imgs="" data-caps="">
-            <span class="n">09</span>
+            data-metric="31% positive in English against 73.8% neutral in Indonesian"
+            data-stack="Python|X/Twitter scraping|Cross-lingual sentiment|WordCloud"
+            data-desc="When an open-source AI agent broke out in February 2026, I tracked how English and Indonesian X/Twitter talked about the same release over the same 19-day window &mdash; 100 English posts and 84 Indonesian ones, each scored in its own language so neither got flattened by translation. The two audiences are not reacting to the same product. English is polarised and opinionated: 31% positive, 16% negative, only 53% neutral, and the vocabulary is capability and risk &mdash; open source, API, security, vulnerabilities, automation. Indonesian is overwhelmingly neutral at 73.8%, positive down at 14.3%, and the vocabulary is practical &mdash; install, setup, pakai, bisa, gratis. Volume behaved differently too: English sat near zero for seventeen days and then spiked to 93 posts in a single day, while Indonesian held a steady baseline of one to nine posts throughout and peaked at 22. Global attention arrives as an event; local attention accumulates."
+            data-imgs="assets/img/pr-aiagent-1.webp|assets/img/pr-aiagent-2.webp|assets/img/pr-aiagent-3.webp|assets/img/pr-aiagent-4.webp|assets/img/pr-aiagent-5.webp|assets/img/pr-aiagent-6.webp|assets/img/pr-aiagent-7.webp"
+            data-caps="English against Indonesian, as a share of the conversation|English: 16% negative, 53% neutral, 31% positive|Indonesian: 11.9% negative, 73.8% neutral, 14.3% positive|English volume: flat for seventeen days, then 93 posts|Indonesian volume: a steady baseline peaking at 22|What English was actually saying|What Indonesian was actually saying">
+            <span class="n">10</span>
             <span class="body">
               <span class="kind">Cross-lingual NLP</span>
               <h3>AI Agent Sentiment: Global vs Indonesia</h3>
-              <span class="sum">Same product, two languages, two very different receptions over a 20-day window.</span>
+              <span class="sum">Same release, two languages: English argues about it, Indonesian works out how to
+                install it.</span>
             </span>
-            <span class="metric">~80% swing<br>vs stable</span>
+            <span class="metric">31% positive EN<br>73.8% neutral ID</span>
             <span class="go" aria-hidden="true"><i class="ph ph-arrow-right"></i></span>
+            <img class="thumb" src="assets/img/pr-aiagent-1.webp" alt="" loading="lazy" decoding="async">
+          </button>
+
+          <button class="work" type="button" id="p14" data-cat="nlp" data-kind="Sentiment &middot; Public health"
+            data-role="Social listening study" data-year="2026" data-title="Nipah Virus Sentiment on X"
+            data-metric="Lexicon reads 39 negatives, the transformer reads 85"
+            data-stack="Python|Lexicon scoring|Transformer sentiment|WordCloud"
+            data-desc="207 Indonesian X/Twitter posts about the Nipah virus outbreak, collected through January 2026 and scored twice: once with a lexicon, once with a pre-trained transformer. Running both was the point, because the method changes the answer. The lexicon reads 39 posts as negative and 140 as neutral; the transformer reads 85 as negative and 107 as neutral. Roughly a quarter of the corpus sits in the gap between them. For public-health monitoring that is not a rounding error &mdash; it is the difference between reporting that the public is calm and reporting that two in five posts are alarmed. Both methods agree on the shape of the timeline, though: near silence until 25 January, then a spike on 27 January peaking at 16 negative posts in one day. The word cloud shows a conversation that stayed informational &mdash; hewan, penularan, kesehatan, kelelawar, kewaspadaan &mdash; reporting transmission and precautions rather than panicking."
+            data-imgs="assets/img/pr-nipah-1.webp|assets/img/pr-nipah-2.webp|assets/img/pr-nipah-3.webp|assets/img/pr-nipah-4.webp|assets/img/pr-nipah-5.webp"
+            data-caps="What the conversation was about|Transformer against lexicon on exactly the same posts|Lexicon distribution: 39 negative, 140 neutral, 28 positive|Daily trend, lexicon: the spike on 27 January|Daily trend, transformer: same spike, many more negatives">
+            <span class="n">11</span>
+            <span class="body">
+              <span class="kind">Sentiment &middot; Public health</span>
+              <h3>Nipah Virus Sentiment on X</h3>
+              <span class="sum">Two sentiment methods on one set of 207 posts disagree about half the negatives
+                &mdash; which is itself the finding.</span>
+            </span>
+            <span class="metric">207 posts<br>two methods</span>
+            <span class="go" aria-hidden="true"><i class="ph ph-arrow-right"></i></span>
+            <img class="thumb" src="assets/img/pr-nipah-1.webp" alt="" loading="lazy" decoding="async">
+          </button>
+
+          <button class="work" type="button" id="p16" data-cat="analytics" data-kind="Nonparametric statistics"
+            data-role="Applied statistics study" data-year="2023" data-title="Urban vs Rural Poverty"
+            data-metric="Rural 12.61% against urban 7.11%, p &lt; 0.001"
+            data-stack="Python|Wilcoxon|Kruskal-Wallis|Jonckheere-Terpstra|Kendall&rsquo;s tau"
+            data-desc="Provincial poverty rates for March 2023, urban against rural, tested properly rather than eyeballed. Kolmogorov-Smirnov rejected normality for both distributions, so the whole analysis runs on nonparametric tests. Wilcoxon signed-rank puts the paired difference at p = 0.00000014 and the paired t-test at p = 0.000071: rural poverty averages 12.61% and peaks at 34.49%, urban averages 7.11% and peaks at 14.21%, and the gap is not the work of a few outliers. Kendall&rsquo;s tau finds the two correlated at p = 0.0064 but only weakly, meaning a province with low urban poverty is not reliably a province with low rural poverty &mdash; they need separate policy, not one number per province. Grouped by island, Kruskal-Wallis fails to reject identical distributions (p = 0.415) while Jonckheere-Terpstra finds a significant ordered trend (p &lt; 0.001): the islands share a shape, but they do rank."
+            data-imgs="assets/img/pr-poverty-1.webp|assets/img/pr-poverty-2.webp|assets/img/pr-poverty-3.webp"
+            data-caps="The study as presented, test by test|Urban and rural poverty stacked, province by province|Neither distribution is normal, so every test is nonparametric">
+            <span class="n">12</span>
+            <span class="body">
+              <span class="kind">Nonparametric statistics</span>
+              <h3>Urban vs Rural Poverty</h3>
+              <span class="sum">Rural poverty runs five and a half points above urban across the provinces, held up by
+                six nonparametric tests.</span>
+            </span>
+            <span class="metric">12.61% rural<br>vs 7.11% urban</span>
+            <span class="go" aria-hidden="true"><i class="ph ph-arrow-right"></i></span>
+            <img class="thumb" src="assets/img/pr-poverty-1.webp" alt="" loading="lazy" decoding="async">
+          </button>
+
+          <button class="work" type="button" id="p15" data-cat="analytics" data-kind="Content analysis &middot; Social"
+            data-role="Communication study" data-year="2025" data-title="Sugar Risk Content on TikTok"
+            data-metric="50 videos hand-coded, 66.7% educational in tone"
+            data-stack="Manual coding|Content analysis|Agenda-setting|Cultivation theory"
+            data-desc="Fifty TikTok videos about the health risks of sugar, coded by hand across theme, tone, visual element, soundtrack and creator type, then read against three mass-communication theories. The content turns out narrower than the topic: 50% of videos frame sugar as a physical health risk and 40% as a mental health risk, but only 10% offer an alternative &mdash; plenty of warning, almost no solution, which is an open gap for any creator willing to fill it. Tone is dominated by education at 66.67%, with sensational and testimonial content at 15.69% each. Text overlay is the visual workhorse at 44.86%, and 48% of videos use plain instrumental audio rather than a trending sound, suggesting these creators are prioritising the message over the algorithm. Speakers skew male (72%) and aged 25 to 59 (80%). The three creator types deliver the same risk differently: professionals lead with clinical evidence, influencers with personal experience, ordinary users with fear."
+            data-imgs="assets/sugar.png" data-caps="Content analysis poster: TikTok and the risks of sugar">
+            <span class="n">13</span>
+            <span class="body">
+              <span class="kind">Content analysis &middot; Social</span>
+              <h3>Sugar Risk Content on TikTok</h3>
+              <span class="sum">Fifty videos hand-coded: everyone on TikTok warns about sugar, almost nobody offers an
+                alternative.</span>
+            </span>
+            <span class="metric">50 videos<br>66.7% educational</span>
+            <span class="go" aria-hidden="true"><i class="ph ph-arrow-right"></i></span>
+            <img class="thumb" src="assets/sugar.png" alt="" loading="lazy" decoding="async">
           </button>
 
           <button class="work" type="button" id="p6" data-cat="analytics" data-kind="Survey &middot; Statistics"
@@ -4566,7 +4662,7 @@ labels = [<span class="s">'loyal'</span>, <span class="s">'newcomer'</span>, <sp
             data-metric="85.3% rate programming as vital" data-stack="R|SPSS|ShinyApp|Chi-square|Mann-Whitney"
             data-desc="A Likert-based survey on student preference between R and Python, analysed with chi-square, Spearman correlation and Mann-Whitney rather than descriptive statistics alone. 85.3% of respondents rated programming ability as vital to their field; the preference split itself turned out to track prior exposure more than perceived capability."
             data-imgs="assets/preferensi.png" data-caps="Research poster on R vs Python preference">
-            <span class="n">10</span>
+            <span class="n">14</span>
             <span class="body">
               <span class="kind">Survey &middot; Statistics</span>
               <h3>R vs Python Preference</h3>
@@ -4934,8 +5030,8 @@ labels = [<span class="s">'loyal'</span>, <span class="s">'newcomer'</span>, <sp
         if (document.readyState === 'complete') signal(.5);
         else addEventListener('load', () => signal(.5), { once: true });
 
-        // the ten bars mirror the project index, so the loader draws the site's own chart
-        const SHAPE = [94, 88, 82, 76, 72, 70, 66, 62, 58, 40];
+        // the fourteen bars mirror the project index, so the loader draws the site's own chart
+        const SHAPE = [94, 88, 83, 82, 76, 72, 70, 68, 62, 56, 54, 48, 46, 40];
         barBox.innerHTML = SHAPE.map(() => '<i></i>').join('');
         const bars = $$('i', barBox);
 
@@ -5052,15 +5148,19 @@ labels = [<span class="s">'loyal'</span>, <span class="s">'newcomer'</span>, <sp
         nlp: { c: 'var(--s3)', label: 'NLP' }, genai: { c: 'var(--s4)', label: 'GenAI' }
       };
       const PTS = [
-        { id: 'p11', impact: 94, depth: 52, c: 'ml', t: 'NSCLC Stage Classification', s: 'Thesis, Grad-CAM', short: 'NSCLC' },
-        { id: 'p1', impact: 88, depth: 82, c: 'genai', t: 'Telkomsel Chatbot RAG', s: '19/19 tests passed', short: 'Telkomsel RAG' },
-        { id: 'p3', impact: 82, depth: 63, c: 'ml', t: 'Vehicle Type Classification', s: '95% accuracy', short: 'Vehicle CV' },
+        { id: 'p11', impact: 94, depth: 80, c: 'ml', t: 'NSCLC Stage Classification', s: 'ViT-B/32 macro F1 0.432', short: 'NSCLC' },
+        { id: 'p1', impact: 88, depth: 82, c: 'genai', t: 'Telkomsel Chatbot RAG', s: '19/19 scenarios passed', short: 'Telkomsel' },
+        { id: 'p7', impact: 83, depth: 90, c: 'analytics', t: 'AXA Policy Book & SMART-RFM', s: '150,000 policies, 5 pages', short: 'AXA book' },
+        { id: 'p3', impact: 82, depth: 63, c: 'ml', t: 'Vehicle Type Classification', s: '95% vs 29% from scratch', short: 'Vehicle CV' },
         { id: 'p8', impact: 76, depth: 56, c: 'ml', t: 'Crypto Price Prediction', s: 'LSTM + XGBoost', short: 'Crypto' },
-        { id: 'p2', impact: 72, depth: 74, c: 'analytics', t: 'HDI, Unemployment & Poverty', s: 'SVR R² 0.55', short: 'HDI' },
-        { id: 'p9', impact: 70, depth: 44, c: 'nlp', t: 'Health Question Summarization', s: 'ROUGE-1 0.499', short: 'Health Q' },
-        { id: 'p7', impact: 66, depth: 88, c: 'analytics', t: 'SMART-RFM Segmentation', s: '150,000+ records', short: 'SMART-RFM' },
-        { id: 'p12', impact: 62, depth: 52, c: 'nlp', t: 'AI Agent Sentiment', s: 'Cross-lingual NLP', short: 'AI Agent' },
-        { id: 'p4', impact: 58, depth: 79, c: 'nlp', t: 'Instagram Competitor Analysis', s: '1,100+ captions', short: 'IG Compet.' },
+        { id: 'p2', impact: 72, depth: 74, c: 'analytics', t: 'HDI, Unemployment & Poverty', s: 'SVR R² 0.59', short: 'HDI' },
+        { id: 'p9', impact: 70, depth: 72, c: 'nlp', t: 'Health Question Summarization', s: 'ROUGE-1 0.298 to 0.499', short: 'Health Q' },
+        { id: 'p4', impact: 68, depth: 79, c: 'nlp', t: 'Instagram Competitor Analysis', s: '1,076 captions classified', short: 'IG Compet.' },
+        { id: 'p12', impact: 62, depth: 52, c: 'nlp', t: 'AI Agent Sentiment', s: 'EN 31% pos vs ID 73.8% neu', short: 'AI Agent' },
+        { id: 'p13', impact: 56, depth: 58, c: 'ml', t: 'Nutri-Score Classification', s: '96.3% accuracy', short: 'Nutri-Score' },
+        { id: 'p14', impact: 54, depth: 50, c: 'nlp', t: 'Nipah Virus Sentiment on X', s: 'Lexicon vs transformer', short: 'Nipah' },
+        { id: 'p15', impact: 48, depth: 36, c: 'analytics', t: 'Sugar Risk Content on TikTok', s: '50 videos hand-coded', short: 'TikTok sugar' },
+        { id: 'p16', impact: 46, depth: 54, c: 'analytics', t: 'Urban vs Rural Poverty', s: '12.61% vs 7.11%', short: 'Poverty gap' },
         { id: 'p6', impact: 40, depth: 48, c: 'analytics', t: 'R vs Python Preference', s: 'Survey study', short: 'R vs Python' }
       ];
       const TITLES = {}; PTS.forEach(p => TITLES[p.id] = p.t);
@@ -5072,20 +5172,20 @@ labels = [<span class="s">'loyal'</span>, <span class="s">'newcomer'</span>, <sp
       const SKILLS = [
         ['Data & Analytics', 'ph-chart-bar', [
           ['SQL', 5, ['p1', 'p7']], ['Excel & Sheets', 5, ['p6']],
-          ['Exploratory data analysis', 5, ['p2', 'p4', 'p7']], ['Statistics', 5, ['p2', 'p6']],
-          ['Hypothesis testing', 4, ['p6']], ['Data visualization', 5, ['p2', 'p4']],
-          ['Executive reporting', 4, ['p7', 'p4']]
+          ['Exploratory data analysis', 5, ['p2', 'p4', 'p7', 'p13']], ['Statistics', 5, ['p2', 'p6', 'p16']],
+          ['Hypothesis testing', 4, ['p6', 'p16']], ['Data visualization', 5, ['p2', 'p4', 'p14']],
+          ['Content analysis', 4, ['p15', 'p4']], ['Executive reporting', 4, ['p7', 'p4', 'p15']]
         ]],
         ['ML & AI', 'ph-brain', [
-          ['Python', 5, ['p1', 'p2', 'p3', 'p11']], ['Machine learning', 4, ['p7', 'p8', 'p2']],
-          ['Deep learning', 4, ['p3', 'p11']], ['NLP', 4, ['p9', 'p4', 'p12']],
+          ['Python', 5, ['p1', 'p2', 'p3', 'p11']], ['Machine learning', 4, ['p7', 'p8', 'p13']],
+          ['Deep learning', 4, ['p3', 'p11']], ['NLP', 4, ['p9', 'p4', 'p12', 'p14']],
           ['Computer vision', 3, ['p3', 'p11']], ['RAG & vector DB', 4, ['p1']],
-          ['Forecasting', 4, ['p8']]
+          ['Explainability', 4, ['p11', 'p13']], ['Forecasting', 4, ['p8']]
         ]],
         ['Engineering & BI', 'ph-stack', [
-          ['Dashboarding', 4, ['p2', 'p8']], ['Data warehousing', 3, ['p1']],
-          ['MySQL', 4, ['p1', 'p7']], ['Workflow automation', 4, ['p1']],
-          ['Flask', 3, ['p8']], ['R', 4, ['p2', 'p6']]
+          ['Power BI', 4, ['p7', 'p4']], ['Dashboarding', 4, ['p7', 'p4', 'p8']],
+          ['Data warehousing', 3, ['p1']], ['MySQL', 4, ['p1', 'p7']],
+          ['Workflow automation', 4, ['p1']], ['Flask', 3, ['p8']], ['R', 4, ['p2', 'p6']]
         ]]
       ];
       $('#ledger').innerHTML = SKILLS.map(([dom, icon, rows]) =>
