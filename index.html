@@ -4167,7 +4167,6 @@
               <li>Clustering &amp; segmentation</li>
               <li>Regression &amp; SVR</li>
               <li>Random forests &amp; trees</li>
-              <li>Gradient boosting</li>
               <li>CNN &amp; ResNet</li>
               <li>Vision Transformers</li>
               <li>Grad-CAM &amp; XAI</li>
@@ -4548,17 +4547,18 @@ labels = [<span class="s">'loyal high value'</span>, <span class="s">'new comer'
           </button>
 
           <button class="work" type="button" id="p8" data-cat="ml" data-kind="Time series" data-role="Applied project"
-            data-year="2025" data-title="Crypto Price Prediction" data-metric="Hybrid trend and volatility model"
-            data-stack="LSTM|XGBoost|Flask"
-            data-desc="A hybrid forecaster pairing an LSTM for long-term trend with XGBoost for short-term volatility, since neither model handles both well alone. Deployed as a Flask web application so the forecast could be queried directly rather than re-run in a notebook."
-            data-imgs="assets/bitcoin.png" data-caps="Hybrid LSTM and XGBoost forecast">
+            data-year="2025" data-title="BitCast &mdash; Bitcoin Price Prediction" data-metric="MAE 0.043 at t+1, 0.060 at t+12"
+            data-stack="TensorFlow|Stacked LSTM|TimeSeriesSplit|Technical indicators"
+            data-desc="A stacked LSTM forecasting Bitcoin twelve 4-hour steps ahead, trained on six years of BTC/USDT (Nov 2017 to Dec 2023) and tested on the eighteen months after it. The network reads 258 timesteps across nine selected indicators &mdash; close, RSI, OBV and others &mdash; through LSTM(528) and LSTM(256) with 0.4 dropout, then emits all twelve horizons from a single Dense layer rather than being called recursively, which stops the error compounding step over step. MAE runs 0.043 at t+1 and 0.060 at t+12, so error grows about 40% across the full horizon. Validation is 10-fold TimeSeriesSplit, so no future data leaks backwards &mdash; the standard trap in price forecasting. Shipped as a public web app with a live price page, a prediction page and a methodology page that writes out the whole pipeline, because a prediction UI that cannot explain itself is indistinguishable from a guess."
+            data-imgs="assets/bitcoin.png" data-caps="BitCast: architecture, metrics and the shipped product">
             <span class="n">08</span>
             <span class="body">
               <span class="kind">Time series</span>
-              <h3>Crypto Price Prediction</h3>
-              <span class="sum">LSTM for trend, XGBoost for volatility, served as a working web application.</span>
+              <h3>BitCast &mdash; Bitcoin Price Prediction</h3>
+              <span class="sum">A stacked LSTM predicting twelve steps at once, shipped with the methodology page
+                that shows its working.</span>
             </span>
-            <span class="metric">LSTM +<br>XGBoost</span>
+            <span class="metric">MAE 0.043<br>at t+1</span>
             <span class="go" aria-hidden="true"><i class="ph ph-arrow-right"></i></span>
             <img class="thumb" src="assets/bitcoin.png" alt="" loading="lazy" decoding="async">
           </button>
@@ -4659,16 +4659,17 @@ labels = [<span class="s">'loyal high value'</span>, <span class="s">'new comer'
 
           <button class="work" type="button" id="p6" data-cat="analytics" data-kind="Survey &middot; Statistics"
             data-role="Survey study" data-year="2023" data-title="R vs Python Preference"
-            data-metric="85.3% rate programming as vital" data-stack="R|SPSS|ShinyApp|Chi-square|Mann-Whitney"
-            data-desc="A Likert-based survey on student preference between R and Python, analysed with chi-square, Spearman correlation and Mann-Whitney rather than descriptive statistics alone. 85.3% of respondents rated programming ability as vital to their field; the preference split itself turned out to track prior exposure more than perceived capability."
+            data-metric="Mann-Whitney p = 0.918, no significant difference" data-stack="R|SPSS|Shiny|Chi-square|Spearman|Mann-Whitney"
+            data-desc="A Likert survey on whether students prefer R or Python, analysed properly rather than described. Every Likert item went through validity and reliability testing before analysis; categorical associations were tested with chi-square and numeric ones with Spearman. The headline is a null result: Mann-Whitney returns p = 0.9178 against an alpha of 0.05, so across comfort, difficulty, mastery, frequency of use and visualisation preference the two languages are statistically indistinguishable for this cohort. The preference is real as an opinion and does not correspond to a measurable difference in use. What did hold: 85.3% rated programming ability as very important and not one respondent rated it otherwise, and Python edges ahead on both self-reported mastery and comfort. Published as a Shiny app so the survey stays explorable."
             data-imgs="assets/preferensi.png" data-caps="Research poster on R vs Python preference">
             <span class="n">14</span>
             <span class="body">
               <span class="kind">Survey &middot; Statistics</span>
               <h3>R vs Python Preference</h3>
-              <span class="sum">Likert survey tested properly with chi-square, Spearman and Mann-Whitney.</span>
+              <span class="sum">Tested properly, and the answer was no difference &mdash; Mann-Whitney p = 0.918
+                across every dimension measured.</span>
             </span>
-            <span class="metric">85.3% rate<br>coding vital</span>
+            <span class="metric">p = 0.918<br>no difference</span>
             <span class="go" aria-hidden="true"><i class="ph ph-arrow-right"></i></span>
             <img class="thumb" src="assets/preferensi.png" alt="" loading="lazy" decoding="async">
           </button>
@@ -5152,7 +5153,7 @@ labels = [<span class="s">'loyal high value'</span>, <span class="s">'new comer'
         { id: 'p1', impact: 88, depth: 82, c: 'genai', t: 'Telkomsel Chatbot RAG', s: '19/19 scenarios passed', short: 'Telkomsel' },
         { id: 'p7', impact: 83, depth: 90, c: 'analytics', t: 'AXA Policy Book & SMART-RFM', s: '150,000 policies, 5 pages', short: 'AXA book' },
         { id: 'p3', impact: 82, depth: 63, c: 'ml', t: 'Vehicle Type Classification', s: '95% vs 29% from scratch', short: 'Vehicle CV' },
-        { id: 'p8', impact: 76, depth: 56, c: 'ml', t: 'Crypto Price Prediction', s: 'LSTM + XGBoost', short: 'Crypto' },
+        { id: 'p8', impact: 76, depth: 64, c: 'ml', t: 'BitCast — Bitcoin Price Prediction', s: 'MAE 0.043 at t+1', short: 'BitCast' },
         { id: 'p2', impact: 72, depth: 74, c: 'analytics', t: 'HDI, Unemployment & Poverty', s: 'SVR R² 0.59', short: 'HDI' },
         { id: 'p9', impact: 70, depth: 72, c: 'nlp', t: 'Health Question Summarization', s: 'ROUGE-1 0.298 to 0.499', short: 'Health Q' },
         { id: 'p4', impact: 68, depth: 79, c: 'nlp', t: 'Instagram Competitor Analysis', s: '1,076 captions classified', short: 'IG Compet.' },
@@ -5161,7 +5162,7 @@ labels = [<span class="s">'loyal high value'</span>, <span class="s">'new comer'
         { id: 'p14', impact: 54, depth: 50, c: 'nlp', t: 'Nipah Virus Sentiment on X', s: 'Lexicon vs transformer', short: 'Nipah' },
         { id: 'p15', impact: 48, depth: 36, c: 'analytics', t: 'Sugar Risk Content on TikTok', s: '50 videos hand-coded', short: 'TikTok sugar' },
         { id: 'p16', impact: 46, depth: 54, c: 'analytics', t: 'Urban vs Rural Poverty', s: '12.61% vs 7.11%', short: 'Poverty gap' },
-        { id: 'p6', impact: 40, depth: 48, c: 'analytics', t: 'R vs Python Preference', s: 'Survey study', short: 'R vs Python' }
+        { id: 'p6', impact: 40, depth: 52, c: 'analytics', t: 'R vs Python Preference', s: 'Mann-Whitney p = 0.918', short: 'R vs Python' }
       ];
       const TITLES = {}; PTS.forEach(p => TITLES[p.id] = p.t);
       const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -5185,7 +5186,7 @@ labels = [<span class="s">'loyal high value'</span>, <span class="s">'new comer'
         ['Engineering & BI', 'ph-stack', [
           ['Power BI', 4, ['p7', 'p4']], ['Dashboarding', 4, ['p7', 'p4', 'p8']],
           ['Data warehousing', 3, ['p1']], ['MySQL', 4, ['p1', 'p7']],
-          ['Workflow automation', 4, ['p1']], ['Flask', 3, ['p8']], ['R', 4, ['p2', 'p6']]
+          ['Workflow automation', 4, ['p1']], ['Web app deployment', 3, ['p8', 'p6']], ['R', 4, ['p2', 'p6']]
         ]]
       ];
       $('#ledger').innerHTML = SKILLS.map(([dom, icon, rows]) =>
