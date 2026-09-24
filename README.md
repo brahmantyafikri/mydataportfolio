@@ -3,7 +3,7 @@
 Personal portfolio site for a Data Analyst / Data Scientist / Business Analyst.
 Single-page, no build step, no dependencies: `index.html` carries its own CSS and JS.
 
-**Live:** https://mydataportfolio-six.vercel.app
+**Live:** https://fikri-dataportfolio.vercel.app
 
 ## Running it
 
