@@ -270,9 +270,8 @@
     }
 
     /* ============================================================
-       BOOT: one quiet screen. Roles roll through the centre and
-       settle on the name, a rail fills underneath, the counter
-       climbs in the corner, then the screen lifts like a curtain.
+       BOOT: a monogram inside a progress ring, a status row with a
+       dotted leader, then six shutters lift in a left-to-right wave.
        ============================================================ */
     #boot {
       position: fixed;
@@ -280,24 +279,10 @@
       z-index: 300;
       display: grid;
       place-items: center;
-      padding: clamp(20px, 4vw, 52px);
-      background: var(--bg);
+      padding: 24px;
       color: var(--ink-0);
-      overflow: hidden;
-      isolation: isolate;
       cursor: pointer;
-      clip-path: inset(0 0 0 0);
-      transition: clip-path 1s var(--ease-io);
-    }
-
-    #boot.done {
-      clip-path: inset(0 0 100% 0)
-    }
-
-    #boot.done>* {
-      transition: transform .9s var(--ease-io), opacity .5s var(--ease);
-      transform: translateY(-48px);
-      opacity: 0
+      isolation: isolate;
     }
 
     html.booting,
@@ -305,147 +290,166 @@
       overflow: hidden
     }
 
-    #boot .bglow {
+    /* the backdrop is six columns, so the exit can wave instead of fade */
+    #boot .bshut {
       position: absolute;
       inset: 0;
       z-index: -1;
-      pointer-events: none;
-      background:
-        radial-gradient(46% 42% at 50% 55%, color-mix(in srgb, var(--acc) 9%, transparent), transparent 70%),
-        radial-gradient(120% 90% at 50% 50%, transparent 55%, color-mix(in srgb, #000 22%, transparent));
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      pointer-events: none
     }
 
-    :root[data-theme="light"] #boot .bglow {
-      background: radial-gradient(46% 42% at 50% 55%, color-mix(in srgb, var(--acc) 10%, transparent), transparent 70%)
+    #boot .bshut i {
+      display: block;
+      margin-right: -1px;
+      background: var(--bg);
+      transition: transform .85s var(--ease-io);
     }
 
-    #boot .bmid {
+    #boot .bshut i:nth-child(2) {
+      transition-delay: .06s
+    }
+
+    #boot .bshut i:nth-child(3) {
+      transition-delay: .12s
+    }
+
+    #boot .bshut i:nth-child(4) {
+      transition-delay: .18s
+    }
+
+    #boot .bshut i:nth-child(5) {
+      transition-delay: .24s
+    }
+
+    #boot .bshut i:nth-child(6) {
+      transition-delay: .3s
+    }
+
+    #boot.done .bshut i {
+      transform: translateY(-100%)
+    }
+
+    #boot .bcore {
       display: grid;
       justify-items: center;
-      text-align: center
+      gap: 16px;
+      animation: bRise .7s var(--ease) both;
+      transition: opacity .35s var(--ease), transform .5s var(--ease);
     }
 
-    /* every word shares one grid cell, so the line never jumps */
-    #boot .broll {
-      display: grid;
-      overflow: hidden;
-      padding: .06em .1em .14em;
-      font-size: clamp(2.3rem, 1.2rem + 4.4vw, 5.2rem);
-      line-height: 1.12;
-      letter-spacing: -.045em;
-      font-weight: 500;
-      white-space: nowrap
-    }
-
-    #boot .broll>span {
-      grid-area: 1 / 1;
-      transform: translateY(105%);
+    #boot.done .bcore {
       opacity: 0;
-      transition: transform .7s var(--ease), opacity .5s var(--ease)
+      transform: translateY(-18px) scale(.97)
     }
 
-    #boot .broll>span.on {
-      transform: none;
-      opacity: 1
+    @keyframes bRise {
+      from {
+        opacity: 0;
+        transform: translateY(14px)
+      }
     }
 
-    #boot .broll>span.out {
-      transform: translateY(-105%);
-      opacity: 0
+    #boot .bring {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: clamp(124px, 15vw, 172px);
+      aspect-ratio: 1;
+      margin-bottom: 10px
     }
 
-    #boot .broll em {
+    #boot .bring svg {
+      position: absolute;
+      inset: 0;
+      overflow: visible;
+      transform: rotate(-90deg)
+    }
+
+    #boot .bring circle {
+      fill: none
+    }
+
+    /* sixty ticks on the outer ring, turning slowly */
+    #boot .tick {
+      stroke: var(--line-2);
+      stroke-width: 1.5;
+      stroke-dasharray: .5 1.5;
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: spin 30s linear infinite
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+    #boot .trk {
+      stroke: var(--line);
+      stroke-width: 2
+    }
+
+    #boot .val {
+      stroke: var(--acc);
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      filter: drop-shadow(0 0 6px color-mix(in srgb, var(--acc) 55%, transparent));
+      transition: stroke-dashoffset .3s var(--ease)
+    }
+
+    #boot .bmono {
+      font-size: clamp(1.9rem, 1.2rem + 2vw, 2.9rem);
+      font-weight: 500;
+      letter-spacing: -.06em;
+      line-height: 1
+    }
+
+    #boot .bmono em {
       font-style: normal;
       color: var(--acc)
     }
 
-    #boot .brail {
-      width: min(240px, 56vw);
-      height: 2px;
-      margin-top: clamp(20px, 3vh, 30px);
-      border-radius: 2px;
-      background: var(--line-2);
-      overflow: hidden
+    #boot .bname {
+      font-size: clamp(1rem, .9rem + .3vw, 1.15rem);
+      font-weight: 500;
+      letter-spacing: -.015em
     }
 
-    #boot .brail i {
-      display: block;
-      height: 100%;
-      background: var(--acc);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform .3s var(--ease)
-    }
-
-    #boot .bfoot {
-      position: absolute;
-      left: clamp(20px, 4vw, 52px);
-      right: clamp(20px, 4vw, 52px);
-      bottom: clamp(18px, 4vw, 44px);
+    #boot .bstat {
       display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 20px
-    }
-
-    #boot .bcmd {
+      align-items: baseline;
+      gap: 8px;
+      width: min(280px, 72vw);
       font-family: var(--font-mono);
       font-size: .75rem;
-      letter-spacing: .02em;
-      color: var(--ink-2);
+      color: var(--ink-2)
+    }
+
+    #boot .bstat .p {
+      color: var(--acc-ink)
+    }
+
+    #boot .bstat b {
+      font-weight: 400;
+      color: var(--ink-1);
       white-space: nowrap
     }
 
-    #boot .bcmd b {
-      font-weight: 400;
-      color: var(--ink-1)
+    #boot .bstat .lead {
+      flex: 1;
+      min-width: 16px;
+      border-bottom: 1px dotted var(--line-2);
+      transform: translateY(-3px)
     }
 
-    #boot .bcmd .p {
-      color: var(--acc-ink)
-    }
-
-    /* block caret, like a shell waiting for the next line */
-    #boot .bcmd b::after {
-      content: '';
-      display: inline-block;
-      width: .55em;
-      height: 1.1em;
-      margin-left: 4px;
-      vertical-align: -.2em;
-      background: var(--acc);
-      animation: caret 1s steps(1) infinite
-    }
-
-    @keyframes caret {
-      50% {
-        opacity: 0
-      }
-    }
-
-    #boot .bpct {
-      display: flex;
-      align-items: flex-start;
-      font-size: clamp(2.6rem, 1.6rem + 3.4vw, 5rem);
-      line-height: .9;
-      font-weight: 300;
-      letter-spacing: -.05em;
-      font-variant-numeric: tabular-nums;
-      color: var(--ink-0)
-    }
-
-    #boot .bpct small {
-      font-size: .34em;
-      font-weight: 400;
-      letter-spacing: 0;
-      margin: .2em 0 0 .12em;
-      color: var(--acc-ink)
-    }
-
-    @media (max-width: 560px) {
-      #boot .bcmd .path {
-        display: none
-      }
+    #boot .bstat .pct {
+      color: var(--ink-0);
+      font-variant-numeric: tabular-nums
     }
 
     /* ============================================================
@@ -4138,19 +4142,19 @@
 <body>
   <!-- ============================ BOOT ============================ -->
   <div id="boot" aria-hidden="true">
-    <div class="bglow"></div>
-    <div class="bmid">
-      <div class="broll" id="bRoll">
-        <span>Data Analyst</span>
-        <span>Data Scientist</span>
-        <span>Business Analyst</span>
-        <span>Brahmantya Fikri<em>.</em></span>
+    <div class="bshut"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="bcore">
+      <div class="bring">
+        <svg viewBox="0 0 120 120">
+          <circle class="tick" cx="60" cy="60" r="58" pathLength="120" />
+          <circle class="trk" cx="60" cy="60" r="50" />
+          <circle class="val" id="bVal" cx="60" cy="60" r="50" pathLength="100" />
+        </svg>
+        <span class="bmono">BF<em>.</em></span>
       </div>
-      <div class="brail"><i id="bFill"></i></div>
-    </div>
-    <div class="bfoot">
-      <span class="bcmd"><span class="p"><span class="path">~/portfolio </span>$</span> <b id="bStage">boot</b></span>
-      <span class="bpct"><span id="bPct">0</span><small>%</small></span>
+      <p class="bname">Brahmantya Fikri</p>
+      <p class="bstat"><span class="p">&gt;</span><b id="bStage">boot</b><span class="lead"></span><span class="pct"
+          id="bPct">000%</span></p>
     </div>
   </div>
 
@@ -5211,12 +5215,11 @@
 
       /* =========================================================
          BOOT (once per session). Progress tracks what gates first
-         paint, the webfont and the document load, but it is paced
-         by time so the roles stay readable on a warm cache.
+         paint, the webfont and the document load, paced by time so
+         a warm cache still shows the ring close rather than snap.
          ========================================================= */
       (function boot() {
-        const el = $('#boot'), fill = $('#bFill'), stage = $('#bStage'), pct = $('#bPct');
-        const words = $$('#bRoll > span');
+        const el = $('#boot'), val = $('#bVal'), stage = $('#bStage'), pct = $('#bPct');
         let booted = false;
         try { booted = sessionStorage.getItem('bf-booted') === '1'; } catch (e) { }
 
@@ -5229,9 +5232,8 @@
 
         root.classList.add('booting');
         const STAGES = ['boot', 'load fonts', 'index projects', 'render ui'];
-        const ROLES = words.length - 1, STEP = 540;
-        const t0 = performance.now(), MIN = ROLES * STEP, MAX = 3400;
-        let shown = 0, finished = false, ready = 0, cur = -1;
+        const t0 = performance.now(), MIN = 1300, MAX = 3000;
+        let shown = 0, finished = false, ready = 0;
 
         const signal = w => { ready = Math.min(1, ready + w); };
         if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => signal(.5));
@@ -5239,23 +5241,10 @@
         if (document.readyState === 'complete') signal(.5);
         else addEventListener('load', () => signal(.5), { once: true });
 
-        // the outgoing word lifts away while the next one rises from below
-        const setWord = k => {
-          if (k === cur) return;
-          const prev = words[cur];
-          if (prev) {
-            prev.classList.replace('on', 'out');
-            setTimeout(() => prev.classList.remove('out'), 700);
-          }
-          words[k].classList.remove('out');
-          words[k].classList.add('on');
-          cur = k;
-        };
-
         const paint = p => {
           shown = Math.max(shown, p);
-          fill.style.transform = 'scaleX(' + shown.toFixed(3) + ')';
-          pct.textContent = Math.round(shown * 100);
+          val.style.strokeDashoffset = (100 - shown * 100).toFixed(2);
+          pct.textContent = String(Math.round(shown * 100)).padStart(3, '0') + '%';
           const s = shown >= 1 ? 'ready' : STAGES[Math.min(STAGES.length - 1, Math.floor(shown * STAGES.length))];
           if (stage.textContent !== s) stage.textContent = s;
         };
@@ -5264,31 +5253,29 @@
           if (finished) return;
           finished = true;
           paint(1);
-          setWord(ROLES);
           try { sessionStorage.setItem('bf-booted', '1'); } catch (e) { }
           setTimeout(() => {
             el.classList.add('done');
             root.classList.remove('booting');
             document.dispatchEvent(new CustomEvent('bf:booted'));
-            setTimeout(() => { el.hidden = true; }, 1100);
+            setTimeout(() => { el.hidden = true; }, 1300);
           }, hold);
         };
 
         const tick = () => {
           if (finished) return;
           const elapsed = performance.now() - t0;
-          setWord(Math.floor(elapsed / STEP) % ROLES);
           const target = Math.min(elapsed / MIN, Math.max((elapsed / MAX) * .6, ready * .95), .99);
           paint(shown + (target - shown) * .15);
-          if (elapsed >= MAX || (ready >= 1 && elapsed >= MIN)) return finish(750);
+          if (elapsed >= MAX || (ready >= 1 && elapsed >= MIN)) return finish(420);
           requestAnimationFrame(tick);
         };
         requestAnimationFrame(tick);
 
-        el.addEventListener('click', () => finish(200));
+        el.addEventListener('click', () => finish(120));
         addEventListener('keydown', function once(e) {
           if (finished) { removeEventListener('keydown', once); return; }
-          if (e.key === 'Escape') finish(200);
+          if (e.key === 'Escape') finish(120);
         });
       })();
 
