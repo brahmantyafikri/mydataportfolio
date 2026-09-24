@@ -37,9 +37,11 @@ Case-study visuals are WebP, max 1600px wide, quality 88.
 
 ## Adding a project
 
-Each project is one `<button class="work">` in `#workList`. The case drawer, the
-cursor preview, the filters and the command palette all read from its data
-attributes, so adding the button is most of the work:
+Each project is one `<article class="work">` in `#workList`, with its title in a
+`<button class="open">` (the keyboard target) and a GitHub link in `.acts`. A click
+anywhere else on the row opens the case. The case drawer, the cursor preview, the
+filters and the command palette all read from the row's data attributes, so adding
+the row is most of the work:
 
 | Attribute | Purpose |
 | --- | --- |
@@ -49,11 +51,14 @@ attributes, so adding the button is most of the work:
 | `data-metric` | The outcome, shown in the drawer |
 | `data-stack` | `|`-separated tools |
 | `data-desc` | Full case text |
-| `data-imgs` / `data-caps` | `|`-separated paths and captions — **must be the same length** |
+| `data-imgs` / `data-caps` | `|`-separated paths and captions, **must be the same length** |
+| `data-repo` | The project's GitHub repository; drives the "View code on GitHub" button in the case drawer |
 
 Then add a matching entry to the `PTS` array in the script so the project appears
 in the impact/depth chart and the search index, and update the counts in the
-section heading, the `#workCount` badge and the capability cards.
+section heading, the `#workCount` badge and the capability cards. If the project
+carries a headline number, it can also get a `.kpi` card under "Impact in numbers"
+(`data-open` takes the project `id`).
 
 ## Conventions
 
