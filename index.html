@@ -43,7 +43,9 @@
        TOKENS
        one accent (signal teal) across the whole page. The four chart
        series colours live only inside the index chart.
-       shape rule: surfaces and media = 20px, anything interactive = pill.
+       shape rule (Swiss, near-square): surfaces and media = 4px, controls
+       and tags = 2px. No pills and no circles; round marks survive only as
+       data points inside the chart.
        z-index scale: grain 150, to-top 190, nav 200, drawer 210,
        case 220, palette 230, lightbox 240, toast 260, boot 300
        ============================================================ */
@@ -80,8 +82,8 @@
       --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
       --ease: cubic-bezier(.16, 1, .3, 1);
       --ease-io: cubic-bezier(.76, 0, .24, 1);
-      --r: 20px;
-      --pill: 999px;
+      --r: 4px;
+      --rc: 2px;
       --gutter: clamp(18px, 4vw, 56px);
       --measure: 64ch;
     }
@@ -128,7 +130,7 @@
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: 96px;
+      scroll-padding-top: 80px;
       -webkit-text-size-adjust: 100%
     }
 
@@ -188,7 +190,7 @@
     :focus-visible {
       outline: 2px solid var(--acc);
       outline-offset: 3px;
-      border-radius: 8px
+      border-radius: var(--rc)
     }
 
     [hidden] {
@@ -270,7 +272,7 @@
     }
 
     /* ============================================================
-       BOOT: a monogram inside a progress ring, a status row with a
+       BOOT: a monogram inside a square progress frame, a status row with a
        dotted leader, then six shutters lift in a left-to-right wave.
        ============================================================ */
     #boot {
@@ -363,11 +365,10 @@
     #boot .bring svg {
       position: absolute;
       inset: 0;
-      overflow: visible;
-      transform: rotate(-90deg)
+      overflow: visible
     }
 
-    #boot .bring circle {
+    #boot .bring rect {
       fill: none
     }
 
@@ -375,16 +376,7 @@
     #boot .tick {
       stroke: var(--line-2);
       stroke-width: 1.5;
-      stroke-dasharray: .5 1.5;
-      transform-box: fill-box;
-      transform-origin: center;
-      animation: spin 30s linear infinite
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg)
-      }
+      stroke-dasharray: .5 1.5
     }
 
     #boot .trk {
@@ -395,10 +387,9 @@
     #boot .val {
       stroke: var(--acc);
       stroke-width: 2.5;
-      stroke-linecap: round;
+      stroke-linecap: square;
       stroke-dasharray: 100;
       stroke-dashoffset: 100;
-      filter: drop-shadow(0 0 6px color-mix(in srgb, var(--acc) 55%, transparent));
       transition: stroke-dashoffset .3s var(--ease)
     }
 
@@ -463,7 +454,7 @@
       background: var(--ink-0);
       color: var(--bg);
       padding: 10px 16px;
-      border-radius: var(--pill);
+      border-radius: var(--rc);
       font-size: .875rem;
       transform: translateY(-200%);
       transition: transform .2s var(--ease);
@@ -488,45 +479,54 @@
 
     #nav {
       position: fixed;
-      top: 12px;
-      left: 50%;
+      top: 0;
+      left: 0;
+      right: 0;
       z-index: 200;
-      width: min(1260px, calc(100% - 24px));
-      transform: translate(-50%, 0);
-      transition: transform .8s var(--ease);
+      border-bottom: 1px solid transparent;
+      transition: transform .8s var(--ease), background .4s var(--ease), border-color .4s var(--ease);
+    }
+
+    #nav.stuck {
+      background: var(--glass);
+      -webkit-backdrop-filter: blur(14px) saturate(150%);
+      backdrop-filter: blur(14px) saturate(150%);
+      border-bottom-color: var(--line)
     }
 
     html.booting #nav {
-      transform: translate(-50%, -160%)
+      transform: translateY(-100%)
     }
 
     .navbar {
       display: flex;
       align-items: center;
       gap: 12px;
-      height: 60px;
-      padding: 0 8px 0 20px;
-      border-radius: var(--pill);
-      border: 1px solid transparent;
-      background: color-mix(in srgb, var(--bg) 40%, transparent);
-      -webkit-backdrop-filter: blur(16px) saturate(160%);
-      backdrop-filter: blur(16px) saturate(160%);
-      transition: background .4s var(--ease), border-color .4s var(--ease), box-shadow .4s var(--ease);
+      max-width: 1320px;
+      height: 64px;
+      margin: 0 auto;
+      padding-inline: var(--gutter);
     }
 
-    #nav.stuck .navbar {
-      background: var(--glass);
-      border-color: var(--line);
-      box-shadow: var(--shadow-2), inset 0 1px 0 var(--hi)
-    }
 
     .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
       font-family: var(--font-mono);
       font-size: .875rem;
       font-weight: 500;
       color: var(--ink-0);
       white-space: nowrap;
       letter-spacing: -.01em
+    }
+
+    /* the mark: a filled square, the same unit as the availability indicator */
+    .brand::before {
+      content: '';
+      width: 10px;
+      height: 10px;
+      background: var(--acc)
     }
 
     .brand b {
@@ -547,8 +547,7 @@
       font-family: var(--font-mono);
       font-size: .78rem;
       color: var(--ink-2);
-      padding: 8px 13px;
-      border-radius: var(--pill);
+      padding: 8px 12px;
       transition: color .25s var(--ease);
     }
 
@@ -557,15 +556,14 @@
       color: var(--ink-0)
     }
 
+    /* active section: an accent rule under the link, sliding between links */
     .navlinks .ind {
       position: absolute;
-      top: 0;
-      bottom: 0;
+      bottom: -14px;
       left: 0;
       width: 0;
-      border-radius: var(--pill);
-      background: var(--surface-2);
-      border: 1px solid var(--line);
+      height: 2px;
+      background: var(--acc);
       opacity: 0;
       pointer-events: none;
       transition: transform .55s var(--ease), width .55s var(--ease), opacity .3s var(--ease);
@@ -580,9 +578,9 @@
     .ibtn {
       display: inline-grid;
       place-items: center;
-      width: 42px;
-      height: 42px;
-      border-radius: var(--pill);
+      width: 40px;
+      height: 40px;
+      border-radius: var(--rc);
       border: 1px solid var(--line);
       color: var(--ink-1);
       font-size: 1.1rem;
@@ -603,9 +601,9 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      height: 42px;
-      padding: 0 12px 0 14px;
-      border-radius: var(--pill);
+      height: 40px;
+      padding: 0 10px 0 12px;
+      border-radius: var(--rc);
       border: 1px solid var(--line);
       color: var(--ink-2);
       font-size: .8125rem;
@@ -622,8 +620,8 @@
       font-family: var(--font-mono);
       font-size: .6875rem;
       border: 1px solid var(--line-2);
-      border-radius: 6px;
-      padding: 1px 6px;
+      border-radius: var(--rc);
+      padding: 0 5px;
       color: var(--ink-2)
     }
 
@@ -631,19 +629,20 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      height: 42px;
-      padding: 0 18px;
-      border-radius: var(--pill);
+      height: 40px;
+      padding: 0 16px;
+      border-radius: var(--rc);
       background: var(--acc-strong);
       color: var(--acc-on);
       font-size: .875rem;
       font-weight: 500;
       white-space: nowrap;
-      transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+      transition: transform .3s var(--ease), background .3s var(--ease);
     }
 
     .ncta:hover {
-      box-shadow: 0 10px 24px -10px color-mix(in srgb, var(--acc) 80%, transparent)
+      background: var(--ink-0);
+      color: var(--bg)
     }
 
     .ncta:active {
@@ -767,49 +766,46 @@
 
     #drawer .close {
       position: absolute;
-      top: 21px;
-      right: calc(var(--gutter) + 8px)
+      top: 12px;
+      right: var(--gutter)
     }
 
     /* ============================================================
-       BUTTONS: directional fill + magnetic pull (JS sets translate)
+       BUTTONS: square-cornered, a fill wipes in from the left on hover
        ============================================================ */
     .btn {
       position: relative;
       display: inline-flex;
       align-items: center;
-      gap: 12px;
-      height: 52px;
-      padding: 0 10px 0 24px;
-      border-radius: var(--pill);
+      gap: 14px;
+      height: 50px;
+      padding: 0 20px 0 22px;
+      border-radius: var(--rc);
       font-size: .9375rem;
       font-weight: 500;
       letter-spacing: -.01em;
       white-space: nowrap;
       border: 1px solid var(--line-2);
       color: var(--ink-0);
-      background: color-mix(in srgb, var(--surface) 70%, transparent);
+      background: transparent;
       overflow: hidden;
       isolation: isolate;
-      transition: transform .35s var(--ease), translate .5s var(--ease), color .35s var(--ease), border-color .35s, box-shadow .35s var(--ease);
+      transition: transform .35s var(--ease), color .35s var(--ease), border-color .35s;
     }
 
     .btn::before {
       content: '';
       position: absolute;
       z-index: -1;
-      left: var(--bx, 50%);
-      top: var(--by, 50%);
-      width: 260%;
-      aspect-ratio: 1;
-      border-radius: 50%;
+      inset: 0;
       background: var(--ink-0);
-      transform: translate(-50%, -50%) scale(0);
-      transition: transform .6s var(--ease);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .5s var(--ease);
     }
 
     .btn:hover::before {
-      transform: translate(-50%, -50%) scale(1)
+      transform: scaleX(1)
     }
 
     .btn:hover {
@@ -822,45 +818,33 @@
     }
 
     .btn .i {
-      display: grid;
+      display: inline-grid;
       place-items: center;
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
       font-size: 1rem;
-      background: var(--surface-2);
-      color: var(--ink-0);
-      transition: transform .5s var(--ease), background .35s, color .35s;
+      transition: transform .45s var(--ease);
     }
 
     .btn:hover .i {
-      transform: rotate(-45deg);
-      background: var(--bg);
-      color: var(--ink-0)
+      transform: translateX(4px)
     }
 
     .btn.primary {
       background: var(--acc-strong);
       color: var(--acc-on);
-      border-color: transparent;
-      box-shadow: 0 16px 34px -16px color-mix(in srgb, var(--acc) 75%, transparent)
+      border-color: var(--acc-strong)
     }
 
     .btn.primary::before {
       background: var(--ink-0)
     }
 
-    .btn.primary .i {
-      background: color-mix(in srgb, var(--acc-on) 16%, transparent);
-      color: var(--acc-on)
-    }
 
     .btn.primary:hover {
       color: var(--bg);
-      box-shadow: 0 22px 40px -18px color-mix(in srgb, var(--acc) 80%, transparent)
+      border-color: var(--ink-0)
     }
 
-    /* quiet text link that sits beside the pill buttons */
+    /* quiet text link that sits beside the buttons */
     .tlink {
       display: inline-flex;
       align-items: center;
@@ -906,7 +890,7 @@
     #drawer .dfiles a {
       font-size: .9375rem;
       letter-spacing: -.01em;
-      padding: 0 10px 0 22px;
+      padding: 0 18px 0 20px;
       justify-content: flex-start;
       transform: none;
       opacity: 1
@@ -938,41 +922,15 @@
       overflow: hidden
     }
 
+    /* one still wash of the accent behind the portrait, nothing that moves */
     .hero-bg::before {
       content: '';
       position: absolute;
-      inset: -30% -20% auto -20%;
-      height: 120%;
-      background:
-        radial-gradient(38% 50% at 72% 30%, color-mix(in srgb, var(--acc) 20%, transparent), transparent 66%),
-        radial-gradient(34% 44% at 18% 10%, color-mix(in srgb, #1E6E82 30%, transparent), transparent 66%),
-        radial-gradient(30% 40% at 50% 80%, color-mix(in srgb, var(--acc) 8%, transparent), transparent 66%);
-      filter: blur(24px);
-      animation: aurora 20s ease-in-out infinite alternate;
-    }
-
-    .hero-bg::after {
-      content: '';
-      position: absolute;
       inset: 0;
-      opacity: .9;
-      background: radial-gradient(520px circle at var(--hx, 70%) var(--hy, 40%), color-mix(in srgb, var(--acc) 9%, transparent), transparent 60%);
-      transition: background-position .3s;
+      background: radial-gradient(60% 70% at 78% 30%, color-mix(in srgb, var(--acc) 9%, transparent), transparent 70%);
     }
 
-    @keyframes aurora {
-      0% {
-        transform: translate3d(-2%, -1%, 0) scale(1)
-      }
 
-      50% {
-        transform: translate3d(3%, 2%, 0) scale(1.08)
-      }
-
-      100% {
-        transform: translate3d(-1%, 3%, 0) scale(1.03)
-      }
-    }
 
     .hero {
       min-height: 100dvh;
@@ -984,60 +942,53 @@
       padding-bottom: 40px;
     }
 
-    /* availability pill: a live badge, then the role it is open to, rolling */
+    /* availability: a plain line, a square indicator that blinks, then the role, rolling */
     .status {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 14px;
       max-width: 100%;
-      padding: 5px 14px 5px 5px;
-      border: 1px solid var(--line-2);
-      border-radius: var(--pill);
-      font-size: .875rem;
+      padding: 6px 0;
+      font-family: var(--font-mono);
+      font-size: .8125rem;
       color: var(--ink-2);
-      background: color-mix(in srgb, var(--surface) 60%, transparent);
-      -webkit-backdrop-filter: blur(10px);
-      backdrop-filter: blur(10px);
-      box-shadow: inset 0 1px 0 var(--hi);
     }
 
     /* keep the hero entrance delay for the reveal, but not for hover */
     .status.fade {
-      transition: opacity .9s var(--ease) var(--d), transform .9s var(--ease) var(--d), border-color .35s var(--ease), background .35s var(--ease)
+      transition: opacity .9s var(--ease) var(--d), transform .9s var(--ease) var(--d)
     }
 
-    .status:hover {
-      border-color: color-mix(in srgb, var(--acc) 55%, transparent);
-      background: color-mix(in srgb, var(--surface-2) 70%, transparent)
+    .status:hover .st-roll {
+      color: var(--acc-ink)
     }
 
     .st-live {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      height: 30px;
-      padding: 0 12px 0 11px;
-      border-radius: var(--pill);
-      background: var(--acc-soft);
-      border: 1px solid color-mix(in srgb, var(--acc) 28%, transparent);
+      gap: 10px;
       color: var(--acc-ink);
-      font-weight: 500;
       white-space: nowrap
     }
 
     .st-live i {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
+      width: 8px;
+      height: 8px;
       background: var(--acc);
-      animation: ping 2.4s var(--ease) infinite
+      animation: blink 1.6s steps(1, end) infinite
     }
 
     .st-role {
       display: inline-flex;
       align-items: center;
-      gap: .3em;
+      gap: .45em;
       white-space: nowrap
+    }
+
+    .st-role::before {
+      content: '/';
+      margin-right: .55em;
+      color: var(--line-2)
     }
 
     /* the words share one grid cell; JS eases the width to the active word */
@@ -1047,8 +998,7 @@
       height: 1.5em;
       line-height: 1.5;
       color: var(--ink-0);
-      font-weight: 500;
-      transition: width .6s var(--ease)
+      transition: width .6s var(--ease), color .3s
     }
 
     .st-roll>span {
@@ -1092,14 +1042,9 @@
       }
     }
 
-    @keyframes ping {
-      0% {
-        box-shadow: 0 0 0 0 color-mix(in srgb, var(--acc) 60%, transparent)
-      }
-
-      70%,
-      100% {
-        box-shadow: 0 0 0 9px transparent
+    @keyframes blink {
+      50% {
+        opacity: .25
       }
     }
 
@@ -1147,7 +1092,6 @@
       right: .06em;
       bottom: .02em;
       height: .055em;
-      border-radius: 4px;
       background: var(--acc);
       transform: scaleX(0);
       transform-origin: left;
@@ -1190,51 +1134,22 @@
       transform: none
     }
 
-    /* portrait: tilt (figure) > reveal (frame) > parallax (plx) > image */
+    /* portrait: reveal (frame) > parallax (plx) > image */
     .portrait {
       position: relative;
       justify-self: end;
-      width: min(100%, 500px);
-      aspect-ratio: 3 / 4;
-      perspective: 1400px
+      width: min(100%, 480px);
+      aspect-ratio: 3 / 4
     }
 
     .portrait .tilt {
       position: absolute;
-      inset: 0;
-      transform-style: preserve-3d;
-      transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
-      transition: transform .8s var(--ease);
+      inset: 0
     }
 
-    .portrait .halo {
-      position: absolute;
-      inset: -14%;
-      z-index: -1;
-      border-radius: 50%;
-      background: radial-gradient(closest-side, color-mix(in srgb, var(--acc) 26%, transparent), transparent);
-      filter: blur(30px);
-      opacity: 0;
-      transition: opacity 1.6s var(--ease) .6s;
-    }
 
-    .lit .portrait .halo {
-      opacity: .8
-    }
 
-    .portrait .ghost {
-      position: absolute;
-      inset: 0;
-      border: 1px solid var(--line-2);
-      border-radius: var(--r);
-      transform: translate3d(22px, 22px, -60px);
-      opacity: 0;
-      transition: opacity 1s var(--ease) 1.1s;
-    }
 
-    .lit .portrait .ghost {
-      opacity: 1
-    }
 
     .portrait .frame {
       position: absolute;
@@ -1244,7 +1159,6 @@
       background: var(--surface);
       clip-path: inset(100% 0 0 0 round var(--r));
       transition: clip-path 1.5s var(--ease-io) .1s;
-      box-shadow: var(--shadow-3);
     }
 
     .lit .portrait .frame {
@@ -1272,21 +1186,7 @@
       filter: none
     }
 
-    .portrait .glare {
-      position: absolute;
-      inset: 0;
-      border-radius: var(--r);
-      pointer-events: none;
-      z-index: 2;
-      background: radial-gradient(55% 45% at var(--gx, 50%) var(--gy, 0%), rgba(255, 255, 255, .22), transparent 62%);
-      mix-blend-mode: soft-light;
-      opacity: 0;
-      transition: opacity .5s var(--ease);
-    }
 
-    .portrait:hover .glare {
-      opacity: 1
-    }
 
     .portrait .frame::after {
       content: '';
@@ -1522,23 +1422,7 @@
       max-width: 52ch
     }
 
-    /* a hairline of accent grows along the top edge on hover */
-    .svc>.svc-ic::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: var(--acc);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform .6s var(--ease)
-    }
 
-    .svc:hover>.svc-ic::after {
-      transform: scaleX(1)
-    }
 
     .svc-ic {
       display: grid;
@@ -1546,7 +1430,7 @@
       width: 52px;
       height: 52px;
       margin-bottom: 18px;
-      border-radius: 16px;
+      border-radius: var(--rc);
       background: var(--acc-soft);
       border: 1px solid color-mix(in srgb, var(--acc) 22%, transparent);
       color: var(--acc-ink);
@@ -1583,16 +1467,15 @@
     .chips li {
       font-family: var(--font-mono);
       font-size: .72rem;
-      padding: 5px 11px;
-      border-radius: var(--pill);
-      border: 1px solid var(--line-2);
+      padding: 4px 9px;
+      border-radius: var(--rc);
       color: var(--ink-1);
-      background: color-mix(in srgb, var(--bg) 55%, transparent);
-      transition: border-color .25s, color .25s;
+      background: color-mix(in srgb, var(--ink-0) 6%, transparent);
+      transition: background .25s, color .25s;
     }
 
     .chips li:hover {
-      border-color: var(--acc);
+      background: var(--acc-soft);
       color: var(--acc-ink)
     }
 
@@ -1602,14 +1485,12 @@
       align-items: center;
       gap: 8px;
       margin-top: auto;
+      padding: 10px 0 4px;
       font-size: .875rem;
       font-weight: 500;
       color: var(--ink-0);
-      padding: 9px 16px;
-      border-radius: var(--pill);
-      border: 1px solid var(--line-2);
-      background: color-mix(in srgb, var(--bg) 40%, transparent);
-      transition: background .3s, color .3s, border-color .3s;
+      border-bottom: 1px solid var(--line-2);
+      transition: color .3s, border-color .3s;
     }
 
     .more i {
@@ -1617,9 +1498,8 @@
     }
 
     .more:hover {
-      background: var(--ink-0);
-      color: var(--bg);
-      border-color: var(--ink-0)
+      color: var(--acc-ink);
+      border-color: var(--acc)
     }
 
     .more:hover i {
@@ -1659,38 +1539,26 @@
       }
     }
 
-    /* spotlight: border and wash follow the pointer (JS sets --mx/--my) */
+    /* hover: an accent rule draws along the top edge of the cell */
     .spot::before {
       content: '';
       position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      padding: 1px;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
       z-index: 3;
       pointer-events: none;
-      background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--acc) 75%, transparent), transparent 45%);
-      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      opacity: 0;
-      transition: opacity .45s var(--ease);
+      background: var(--acc);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .6s var(--ease);
     }
 
-    .spot::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      z-index: -1;
-      pointer-events: none;
-      background: radial-gradient(520px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--acc) 9%, transparent), transparent 55%);
-      opacity: 0;
-      transition: opacity .45s var(--ease);
-    }
 
     .spot:hover::before,
-    .spot:hover::after {
-      opacity: 1
+    .spot:focus-visible::before {
+      transform: scaleX(1)
     }
 
     /* ============================================================
@@ -1718,7 +1586,6 @@
       overflow: hidden;
       background: var(--surface);
       border: 1px solid var(--line);
-      box-shadow: var(--shadow-2);
     }
 
     .idcard .media {
@@ -1777,7 +1644,7 @@
       font-weight: 500
     }
 
-    /* the chain: one person from query to presentation, a pulse runs along it */
+    /* the chain: one person from query to presentation */
     .chain {
       position: relative;
       display: grid;
@@ -1796,30 +1663,8 @@
       background: var(--line-2)
     }
 
-    .chain .beam {
-      position: absolute;
-      left: 24px;
-      right: 24px;
-      top: 23px;
-      height: 3px;
-      overflow: hidden;
-      border-radius: 3px
-    }
 
-    .chain .beam i {
-      display: block;
-      width: 30%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, var(--acc), transparent);
-      transform: translateX(-100%);
-      animation: beam 3.4s var(--ease-io) infinite
-    }
 
-    @keyframes beam {
-      to {
-        transform: translateX(340%)
-      }
-    }
 
     .step {
       position: relative
@@ -1830,7 +1675,7 @@
       z-index: 1;
       width: 48px;
       height: 48px;
-      border-radius: 50%;
+      border-radius: var(--rc);
       display: grid;
       place-items: center;
       background: var(--surface);
@@ -1841,7 +1686,6 @@
     }
 
     .step:hover .ic {
-      transform: scale(1.1);
       background: var(--acc-strong);
       color: var(--acc-on)
     }
@@ -1885,10 +1729,6 @@
         bottom: 24px;
         width: 1px;
         height: auto
-      }
-
-      .chain .beam {
-        display: none
       }
 
       .step {
@@ -1962,7 +1802,7 @@
       gap: 8px;
       height: 36px;
       padding: 0 14px;
-      border-radius: var(--pill);
+      border-radius: var(--rc);
       border: 1px solid var(--line);
       font-size: .8125rem;
       color: var(--ink-2);
@@ -2018,7 +1858,7 @@
     .chartWrap {
       position: relative;
       background: var(--chart-surface);
-      border-radius: 14px;
+      border-radius: var(--r);
       padding: 8px 6px 0
     }
 
@@ -2156,7 +1996,7 @@
       z-index: 5;
       background: var(--ink-0);
       color: var(--bg);
-      border-radius: 12px;
+      border-radius: var(--r);
       padding: 10px 14px;
       font-size: .8125rem;
       line-height: 1.45;
@@ -2195,7 +2035,7 @@
       color: var(--ink-2);
       height: 34px;
       padding: 0 14px;
-      border-radius: var(--pill);
+      border-radius: var(--rc);
       border: 1px solid var(--line);
       transition: color .25s, border-color .25s;
     }
@@ -2277,13 +2117,12 @@
     }
 
     .kpi:hover {
-      transform: translateY(-3px);
       border-color: var(--line-2);
-      box-shadow: var(--shadow-2)
+      background: var(--surface-2)
     }
 
     .kpi:active {
-      transform: translateY(-1px) scale(.99)
+      transform: scale(.99)
     }
 
     .kpi b {
@@ -2355,34 +2194,44 @@
     .toolbar {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 2px 6px;
       align-items: center;
-      margin-bottom: 24px
+      margin-bottom: 0
     }
 
     .toolbar button {
-      height: 40px;
-      padding: 0 16px;
-      border-radius: var(--pill);
-      border: 1px solid var(--line);
+      position: relative;
+      height: 44px;
+      padding: 0 12px;
       font-size: .875rem;
       color: var(--ink-2);
-      transition: color .25s, border-color .25s, background .25s, transform .25s var(--ease);
+      transition: color .25s;
+    }
+
+    .toolbar button::after {
+      content: '';
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: -1px;
+      height: 2px;
+      background: var(--acc);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .45s var(--ease)
     }
 
     .toolbar button:hover {
-      color: var(--ink-0);
-      border-color: var(--line-2)
+      color: var(--ink-0)
     }
 
-    .toolbar button:active {
-      transform: scale(.96)
-    }
 
     .toolbar button.on {
-      background: var(--ink-0);
-      color: var(--bg);
-      border-color: var(--ink-0)
+      color: var(--ink-0)
+    }
+
+    .toolbar button.on::after {
+      transform: scaleX(1)
     }
 
     .toolbar .count {
@@ -2390,6 +2239,10 @@
       font-family: var(--font-mono);
       font-size: .8rem;
       color: var(--ink-2)
+    }
+
+    .toolbar button:first-child {
+      margin-left: -12px
     }
 
     .workList {
@@ -2503,7 +2356,7 @@
     .work .repo {
       width: 44px;
       height: 44px;
-      border-radius: 50%;
+      border-radius: var(--rc);
       border: 1px solid var(--line-2);
       display: grid;
       place-items: center;
@@ -2526,7 +2379,7 @@
     .work .go {
       width: 44px;
       height: 44px;
-      border-radius: 50%;
+      border-radius: var(--rc);
       border: 1px solid var(--line-2);
       display: grid;
       place-items: center;
@@ -2539,7 +2392,7 @@
       background: var(--acc-strong);
       border-color: transparent;
       color: var(--acc-on);
-      transform: rotate(-45deg)
+      transform: translateX(4px)
     }
 
     /* the visual sits in the row, so every case reads at a glance without hover */
@@ -2548,7 +2401,7 @@
       width: 100%;
       aspect-ratio: 16 / 10;
       object-fit: cover;
-      border-radius: 12px;
+      border-radius: var(--r);
       border: 1px solid var(--line);
       background: var(--bg-2);
       transition: transform .6s var(--ease), border-color .3s var(--ease)
@@ -2580,7 +2433,7 @@
       }
 
       .work:hover .thumb {
-        transform: scale(1.035) rotate(-1deg);
+        transform: scale(1.03);
         border-color: var(--line-2)
       }
     }
@@ -2628,7 +2481,6 @@
         width: 100%;
         aspect-ratio: 16 / 9;
         object-fit: cover;
-        border-radius: 14px;
         border: 1px solid var(--line)
       }
 
@@ -2767,7 +2619,7 @@
       height: 44px;
       margin-bottom: 22px;
       padding: 0 16px 0 14px;
-      border-radius: var(--pill);
+      border-radius: var(--rc);
       border: 1px solid var(--line-2);
       background: var(--surface-2);
       font-size: .875rem;
@@ -2828,7 +2680,7 @@
       font-size: .72rem;
       color: var(--ink-1);
       border: 1px solid var(--line-2);
-      border-radius: var(--pill);
+      border-radius: var(--rc);
       padding: 4px 11px
     }
 
@@ -2839,7 +2691,7 @@
     }
 
     #case .cshots figure {
-      border-radius: 14px;
+      border-radius: var(--r);
       overflow: hidden;
       border: 1px solid var(--line);
       background: var(--bg-2);
@@ -2847,8 +2699,7 @@
     }
 
     #case .cshots figure:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-2)
+      border-color: var(--line-2)
     }
 
     #case .cshots img {
@@ -2866,7 +2717,7 @@
     #case .cempty {
       margin-top: 28px;
       padding: 22px;
-      border-radius: 14px;
+      border-radius: var(--r);
       border: 1px dashed var(--line-2);
       font-size: .9rem;
       color: var(--ink-2)
@@ -2887,7 +2738,7 @@
       gap: 10px;
       height: 48px;
       padding: 0 18px;
-      border-radius: var(--pill);
+      border-radius: var(--rc);
       border: 1px solid var(--line-2);
       font-size: .875rem;
       color: var(--ink-1);
@@ -2969,25 +2820,20 @@
 
     .stop .pin i {
       position: absolute;
-      left: 14px;
-      top: 5px;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
+      left: 16px;
+      top: 7px;
+      width: 10px;
+      height: 10px;
       background: var(--bg);
       border: 2px solid var(--line-2);
-      transition: background .5s var(--ease), border-color .5s var(--ease), box-shadow .5s var(--ease), transform .5s var(--ease);
+      transition: background .5s var(--ease), border-color .5s var(--ease);
     }
 
     .stop.lit .pin i {
       background: var(--acc);
-      border-color: var(--acc);
-      box-shadow: 0 0 0 7px var(--acc-soft)
+      border-color: var(--acc)
     }
 
-    .stop:hover .pin i {
-      transform: scale(1.25)
-    }
 
     .stop .body {
       padding-left: 18px;
@@ -3013,7 +2859,7 @@
       width: 26px;
       height: 26px;
       object-fit: contain;
-      border-radius: 50%;
+      border-radius: var(--rc);
       background: #F7FAF9;
       padding: 3px
     }
@@ -3041,14 +2887,13 @@
       font-family: var(--font-mono);
       font-size: .72rem;
       color: var(--ink-1);
-      border: 1px solid var(--line);
-      border-radius: var(--pill);
-      padding: 4px 11px
+      background: color-mix(in srgb, var(--ink-0) 6%, transparent);
+      border-radius: var(--rc);
+      padding: 4px 9px
     }
 
     .tags span.hi {
       color: var(--acc-ink);
-      border-color: color-mix(in srgb, var(--acc) 45%, transparent);
       background: var(--acc-soft)
     }
 
@@ -3062,7 +2907,7 @@
     .shots img {
       height: 112px;
       width: auto;
-      border-radius: 12px;
+      border-radius: var(--r);
       border: 1px solid var(--line);
       cursor: zoom-in;
       object-fit: cover;
@@ -3070,8 +2915,8 @@
     }
 
     .shots img:hover {
-      transform: translateY(-4px) rotate(-1.5deg);
-      box-shadow: var(--shadow-2)
+      border-color: var(--line-2);
+      opacity: .88
     }
 
     @media (max-width: 760px) {
@@ -3150,7 +2995,7 @@
       place-items: center;
       width: 38px;
       height: 38px;
-      border-radius: 12px;
+      border-radius: var(--r);
       background: var(--acc-soft);
       color: var(--acc-ink);
       font-size: 1.15rem
@@ -3246,9 +3091,9 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      height: 50px;
-      padding: 0 20px 0 12px;
-      border-radius: var(--pill);
+      height: 48px;
+      padding: 0 18px 0 12px;
+      border-radius: var(--rc);
       border: 1px solid var(--line);
       background: var(--surface);
       font-size: .9rem;
@@ -3266,13 +3111,13 @@
       width: 26px;
       height: 26px;
       object-fit: contain;
-      border-radius: 50%;
+      border-radius: var(--rc);
       background: #F7FAF9;
       padding: 3px
     }
 
     /* ============================================================
-       CREDENTIALS: five cells, foil sheen follows the pointer
+       CREDENTIALS: five cells, the BNSP licence set wide
        ============================================================ */
     .creds {
       display: grid;
@@ -3296,8 +3141,7 @@
     }
 
     .cred:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-2)
+      border-color: var(--line-2)
     }
 
     .cred.feat {
@@ -3308,12 +3152,11 @@
     .cred .logo {
       width: 58px;
       height: 58px;
-      border-radius: 16px;
+      border-radius: var(--r);
       background: #F7FAF9;
       display: grid;
       place-items: center;
-      padding: 9px;
-      box-shadow: var(--shadow-1)
+      padding: 9px
     }
 
     .cred.feat .logo {
@@ -3364,27 +3207,8 @@
       font-size: 1rem
     }
 
-    .cred .holo {
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity .5s var(--ease);
-      background: linear-gradient(115deg, transparent 22%, rgba(120, 255, 214, .16) 36%, rgba(140, 190, 255, .14) 46%, rgba(255, 224, 170, .12) 56%, transparent 70%);
-      background-size: 260% 260%;
-      background-position: var(--hp, 50%) 50%;
-      mix-blend-mode: screen;
-    }
 
-    :root[data-theme="light"] .cred .holo {
-      mix-blend-mode: multiply;
-      filter: saturate(2)
-    }
 
-    .cred:hover .holo {
-      opacity: 1
-    }
 
     @media (max-width: 900px) {
       .creds {
@@ -3421,7 +3245,6 @@
       background: radial-gradient(closest-side, color-mix(in srgb, var(--acc) 18%, transparent), transparent);
       filter: blur(40px);
       pointer-events: none;
-      animation: aurora 18s ease-in-out infinite alternate;
     }
 
     .big {
@@ -3499,7 +3322,6 @@
     }
 
     .clink:hover {
-      transform: translateX(6px);
       border-color: var(--line-2);
       background: var(--surface-2)
     }
@@ -3507,7 +3329,7 @@
     .clink .ic {
       width: 48px;
       height: 48px;
-      border-radius: 14px;
+      border-radius: var(--rc);
       display: grid;
       place-items: center;
       background: var(--acc-soft);
@@ -3555,7 +3377,7 @@
       gap: 6px;
       height: 36px;
       padding: 0 14px;
-      border-radius: var(--pill);
+      border-radius: var(--rc);
       border: 1px solid var(--line-2);
       font-size: .8125rem;
       color: var(--ink-1);
@@ -3690,7 +3512,7 @@
       align-items: center;
       gap: 12px;
       padding: 11px 14px;
-      border-radius: 12px;
+      border-radius: var(--r);
       cursor: pointer;
       font-size: .95rem;
       color: var(--ink-1)
@@ -3742,7 +3564,7 @@
     #lb img {
       max-width: 100%;
       max-height: 78vh;
-      border-radius: 14px;
+      border-radius: var(--r);
       box-shadow: 0 40px 90px -30px rgba(0, 0, 0, .7)
     }
 
@@ -3758,7 +3580,7 @@
       color: #EEF5F3;
       width: 48px;
       height: 48px;
-      border-radius: 50%;
+      border-radius: var(--rc);
       border: 1px solid rgba(238, 245, 243, .25);
       display: grid;
       place-items: center;
@@ -3792,19 +3614,23 @@
       z-index: 190;
       display: grid;
       place-items: center;
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      border-radius: var(--rc);
+      border: 1px solid var(--line-2);
       background: var(--glass);
       -webkit-backdrop-filter: blur(14px);
       backdrop-filter: blur(14px);
-      box-shadow: var(--shadow-2);
       color: var(--ink-0);
       font-size: 1.05rem;
       opacity: 0;
-      transform: translateY(14px) scale(.9);
+      transform: translateY(14px);
       pointer-events: none;
-      transition: opacity .4s var(--ease), transform .5s var(--ease);
+      transition: opacity .4s var(--ease), transform .5s var(--ease), border-color .3s;
+    }
+
+    #toTop:hover {
+      border-color: var(--acc)
     }
 
     #toTop.on {
@@ -3821,27 +3647,9 @@
       transition: transform .35s var(--ease)
     }
 
-    #toTop svg {
-      position: absolute;
-      inset: 0;
-      transform: rotate(-90deg)
-    }
 
-    #toTop circle {
-      fill: none;
-      stroke-width: 2
-    }
 
-    #toTop .trk {
-      stroke: var(--line-2)
-    }
 
-    #toTop .val {
-      stroke: var(--acc);
-      stroke-linecap: round;
-      stroke-dasharray: 100;
-      stroke-dashoffset: 0
-    }
 
     #toast {
       position: fixed;
@@ -3855,7 +3663,7 @@
       background: var(--ink-0);
       color: var(--bg);
       padding: 11px 18px;
-      border-radius: var(--pill);
+      border-radius: var(--rc);
       font-size: .875rem;
       opacity: 0;
       pointer-events: none;
@@ -4072,10 +3880,6 @@
         filter: none !important
       }
 
-      .chain .beam {
-        display: none
-      }
-
       .ticker {
         animation: none !important
       }
@@ -4152,9 +3956,9 @@
     <div class="bcore">
       <div class="bring">
         <svg viewBox="0 0 120 120">
-          <circle class="tick" cx="60" cy="60" r="58" pathLength="120" />
-          <circle class="trk" cx="60" cy="60" r="50" />
-          <circle class="val" id="bVal" cx="60" cy="60" r="50" pathLength="100" />
+          <rect class="tick" x="1" y="1" width="118" height="118" pathLength="120" />
+          <rect class="trk" x="10" y="10" width="100" height="100" />
+          <rect class="val" id="bVal" x="10" y="10" width="100" height="100" pathLength="100" />
         </svg>
         <span class="bmono">BF<em>.</em></span>
       </div>
@@ -4247,9 +4051,7 @@
         </div>
 
         <figure class="portrait" id="portrait">
-          <div class="halo" aria-hidden="true"></div>
           <div class="tilt">
-            <div class="ghost" aria-hidden="true"></div>
             <div class="frame">
               <div class="plx">
                 <picture>
@@ -4263,7 +4065,6 @@
                     alt="Brahmantya Fikri in a dark suit wearing the Universitas Airlangga cum laude medal, in front of a row of Indonesian flags">
                 </picture>
               </div>
-              <div class="glare" aria-hidden="true"></div>
             </div>
           </div>
         </figure>
@@ -4393,7 +4194,6 @@
             <p class="dim">It also keeps the scope honest. I take work I can finish properly, and I say so when
               something is outside that line.</p>
             <div class="chain">
-              <div class="beam" aria-hidden="true"><i></i></div>
               <div class="step"><span class="ic"><i class="ph ph-database"></i></span><b>Queried by me</b><small>SQL,
                   profiling, cleaning</small></div>
               <div class="step"><span class="ic"><i class="ph ph-graph"></i></span><b>Modelled by me</b><small>Method,
@@ -5054,7 +4854,6 @@
         </div>
         <div class="creds stg">
           <article class="cred feat spot">
-            <div class="holo" aria-hidden="true"></div>
             <div class="logo"><img src="assets/img/cert-bnsp.png" alt="BNSP" loading="lazy" decoding="async"></div>
             <h3>Associate Data Analyst</h3>
             <p class="meta">BNSP, valid Jul 2025 - Jul 2028</p>
@@ -5062,7 +4861,6 @@
             <span class="ok"><i class="ph ph-seal-check"></i>Verified</span>
           </article>
           <article class="cred spot">
-            <div class="holo" aria-hidden="true"></div>
             <div class="logo"><img src="assets/img/cert-digitalent.png" alt="Digitalent" loading="lazy"
                 decoding="async"></div>
             <h3>Associate Data Scientist</h3>
@@ -5071,7 +4869,6 @@
             <span class="ok"><i class="ph ph-seal-check"></i>Verified</span>
           </article>
           <article class="cred spot">
-            <div class="holo" aria-hidden="true"></div>
             <div class="logo"><img src="assets/img/cert-digitalent.png" alt="Digitalent" loading="lazy"
                 decoding="async"></div>
             <h3>Data Analysis Micro Skill</h3>
@@ -5080,14 +4877,12 @@
             <span class="ok"><i class="ph ph-seal-check"></i>Verified</span>
           </article>
           <article class="cred spot">
-            <div class="holo" aria-hidden="true"></div>
             <div class="logo"><img src="assets/img/cert-cisco.png" alt="Cisco" loading="lazy" decoding="async"></div>
             <h3>Introduction to Cybersecurity</h3>
             <p class="meta">Cisco Networking Academy, Oct 2025</p>
             <span class="ok"><i class="ph ph-seal-check"></i>Verified</span>
           </article>
           <article class="cred spot">
-            <div class="holo" aria-hidden="true"></div>
             <div class="logo"><img src="assets/img/cert-greatlearning.png" alt="Great Learning" loading="lazy"
                 decoding="async"></div>
             <h3>Database Management System</h3>
@@ -5196,10 +4991,6 @@
   </div>
 
   <a id="toTop" href="#top" aria-label="Back to top">
-    <svg viewBox="0 0 48 48" aria-hidden="true">
-      <circle class="trk" cx="24" cy="24" r="22" />
-      <circle class="val" cx="24" cy="24" r="22" pathLength="100" />
-    </svg>
     <i class="ph ph-arrow-up" aria-hidden="true"></i>
   </a>
   <div id="toast" role="status"></div>
@@ -5480,61 +5271,12 @@
       })();
 
       /* =========================================================
-         POINTER EFFECTS: hero spotlight + portrait tilt, buttons, cards
-         ========================================================= */
-      if (FINE && !RM) {
-        const top = $('#top'), portrait = $('#portrait'), tilt = $('.tilt', portrait);
-        let raf = null, lx = 0, ly = 0;
-        const paintHero = () => {
-          raf = null;
-          const r = top.getBoundingClientRect();
-          top.style.setProperty('--hx', (lx - r.left) + 'px');
-          top.style.setProperty('--hy', (ly - r.top) + 'px');
-          const pr = portrait.getBoundingClientRect();
-          const cx = Math.max(-1, Math.min(1, (lx - (pr.left + pr.width / 2)) / pr.width));
-          const cy = Math.max(-1, Math.min(1, (ly - (pr.top + pr.height / 2)) / pr.height));
-          tilt.style.setProperty('--ry', (cx * 7).toFixed(2) + 'deg');
-          tilt.style.setProperty('--rx', (-cy * 6).toFixed(2) + 'deg');
-          portrait.style.setProperty('--gx', ((lx - pr.left) / pr.width * 100).toFixed(1) + '%');
-          portrait.style.setProperty('--gy', ((ly - pr.top) / pr.height * 100).toFixed(1) + '%');
-        };
-        top.addEventListener('pointermove', e => { lx = e.clientX; ly = e.clientY; if (!raf) raf = requestAnimationFrame(paintHero); });
-        top.addEventListener('pointerleave', () => { tilt.style.setProperty('--rx', '0deg'); tilt.style.setProperty('--ry', '0deg'); });
-      }
-
-      // buttons: the fill enters from, and leaves toward, the pointer; magnetic pull on fine pointers
-      const setOrigin = (b, e) => {
-        const r = b.getBoundingClientRect();
-        b.style.setProperty('--bx', (e.clientX - r.left) + 'px');
-        b.style.setProperty('--by', (e.clientY - r.top) + 'px');
-      };
-      $$('.btn').forEach(b => {
-        b.addEventListener('pointerenter', e => setOrigin(b, e));
-        b.addEventListener('pointerleave', e => { setOrigin(b, e); b.style.translate = ''; });
-        if (FINE && !RM) b.addEventListener('pointermove', e => {
-          const r = b.getBoundingClientRect();
-          const dx = (e.clientX - (r.left + r.width / 2)) / r.width, dy = (e.clientY - (r.top + r.height / 2)) / r.height;
-          b.style.translate = (dx * 10).toFixed(1) + 'px ' + (dy * 8).toFixed(1) + 'px';
-        });
-      });
-
-      // spotlight cards: border and wash track the pointer
-      if (FINE) document.addEventListener('pointermove', e => {
-        const c = e.target.closest && e.target.closest('.spot');
-        if (!c) return;
-        const r = c.getBoundingClientRect();
-        c.style.setProperty('--mx', (e.clientX - r.left) + 'px');
-        c.style.setProperty('--my', (e.clientY - r.top) + 'px');
-        c.style.setProperty('--hp', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
-      }, { passive: true });
-
-      /* =========================================================
          PROJECT INDEX CHART
-         thin columns, 4px rounded data-end, 2px depth line, r4 dots with a
+         thin columns, 2px squared-off data-end, 2px depth line, r4 dots with a
          2px surface ring; text stays in ink tokens, never series colour
          ========================================================= */
       const plot = $('#plot'), tip = $('#tip'), chartWrap = $('.chartWrap');
-      const VW = 1000, PADL = 52, PADR = 16, BASE = 292, TOP = 24, BW = 22, R = 4;
+      const VW = 1000, PADL = 52, PADR = 16, BASE = 292, TOP = 24, BW = 22, R = 2;
       const slot = (VW - PADL - PADR) / PTS.length;
       const yOf = v => BASE - (v / 100) * (BASE - TOP);
       const xOf = i => PADL + slot * i + slot / 2;
