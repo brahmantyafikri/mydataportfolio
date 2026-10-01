@@ -3375,7 +3375,8 @@
     }
 
     /* ============================================================
-       CREDENTIALS: five cells, foil sheen follows the pointer
+       CREDENTIALS: one cell per certificate, foil sheen follows the pointer,
+       the whole cell opens the scan in the lightbox
        ============================================================ */
     .creds {
       display: grid;
@@ -3451,11 +3452,20 @@
     .cred .id {
       font-family: var(--font-mono);
       font-size: .75rem;
-      color: var(--ink-2)
+      color: var(--ink-2);
+      overflow-wrap: anywhere
     }
 
-    .cred .ok {
+    .cred .acts {
       margin-top: auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px 18px
+    }
+
+    .cred .ok,
+    .cred .vfy {
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -3463,8 +3473,38 @@
       color: var(--acc-ink)
     }
 
-    .cred .ok i {
+    .cred .ok i,
+    .cred .vfy i {
       font-size: 1rem
+    }
+
+    /* the button covers the whole cell; Verify sits above it */
+    .cred .ok::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      z-index: 1
+    }
+
+    .cred .ok:focus-visible {
+      outline: none
+    }
+
+    .cred:has(.ok:focus-visible) {
+      outline: 2px solid var(--acc);
+      outline-offset: 3px
+    }
+
+    .cred .vfy {
+      position: relative;
+      z-index: 2;
+      color: var(--ink-2);
+      transition: color .3s var(--ease)
+    }
+
+    .cred .vfy:hover {
+      color: var(--acc-ink)
     }
 
     .cred .holo {
@@ -4425,8 +4465,8 @@
           </div>
           <div class="principle">
             <h3>Certified</h3>
-            <p>BNSP Associate Data Analyst (2025-2028) and Digitalent Associate Data Scientist. Competence on paper, not
-              just on a CV.</p>
+            <p>BNSP Associate Data Analyst (2025-2028), the Google and IBM Data Analyst professional certificates, and
+              Digitalent Associate Data Scientist. Competence on paper, not just on a CV.</p>
           </div>
           <div class="principle">
             <h3>Documented</h3>
@@ -5184,48 +5224,132 @@
         <div class="sec-head">
           <h2 class="h2 rv">Licenses on <em>file</em>.</h2>
         </div>
-        <div class="creds stg">
+        <div class="creds stg" id="creds">
           <article class="cred feat spot">
             <div class="holo" aria-hidden="true"></div>
             <div class="logo"><img src="assets/img/cert-bnsp.png" alt="BNSP" loading="lazy" decoding="async"></div>
             <h3>Associate Data Analyst</h3>
             <p class="meta">BNSP, valid Jul 2025 - Jul 2028</p>
-            <p class="id">ID 62015 2120 5 0000373</p>
-            <span class="ok"><i class="ph ph-seal-check"></i>Verified</span>
+            <p class="id">No. 62015 2120 5 0000373 2025</p>
+            <div class="acts">
+              <button class="ok" type="button" data-cert="assets/img/certs/bnsp-associate-data-analyst.webp" data-cap="Associate Data Analyst, BNSP, valid Jul 2025 - Jul 2028"><i
+                  class="ph ph-seal-check"></i>View certificate</button>
+            </div>
           </article>
           <article class="cred spot">
             <div class="holo" aria-hidden="true"></div>
-            <div class="logo"><img src="assets/img/cert-digitalent.png" alt="Digitalent" loading="lazy"
-                decoding="async"></div>
-            <h3>Associate Data Scientist</h3>
-            <p class="meta">Digitalent Komdigi, Aug 2026</p>
+            <div class="logo"><img src="assets/img/cert-google.png" alt="Google" loading="lazy" decoding="async"></div>
+            <h3>Google Data Analytics Professional Certificate</h3>
+            <p class="meta">Google via Coursera, Sep 2026, nine courses</p>
+            <p class="id">ID IGWUEUOVGO3M</p>
+            <div class="acts">
+              <button class="ok" type="button" data-cert="assets/img/certs/google-data-analytics.webp" data-cap="Google Data Analytics Professional Certificate, Google via Coursera, Sep 2026, nine courses"><i
+                  class="ph ph-seal-check"></i>View certificate</button>
+              <a class="vfy" href="https://coursera.org/verify/professional-cert/IGWUEUOVGO3M" target="_blank" rel="noopener">Verify<i
+                  class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+            </div>
+          </article>
+          <article class="cred spot">
+            <div class="holo" aria-hidden="true"></div>
+            <div class="logo"><img src="assets/img/cert-ibm.png" alt="IBM" loading="lazy" decoding="async"></div>
+            <h3>IBM Data Analyst Professional Certificate</h3>
+            <p class="meta">IBM via Coursera, Oct 2026, eleven courses</p>
+            <p class="id">ID XEF6UWBTCB52</p>
+            <div class="acts">
+              <button class="ok" type="button" data-cert="assets/img/certs/ibm-data-analyst.webp" data-cap="IBM Data Analyst Professional Certificate, IBM via Coursera, Oct 2026, eleven courses"><i
+                  class="ph ph-seal-check"></i>View certificate</button>
+              <a class="vfy" href="https://coursera.org/verify/professional-cert/XEF6UWBTCB52" target="_blank" rel="noopener">Verify<i
+                  class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+            </div>
+          </article>
+          <article class="cred spot">
+            <div class="holo" aria-hidden="true"></div>
+            <div class="logo"><img src="assets/img/cert-digitalent.png" alt="Digitalent" loading="lazy" decoding="async"></div>
+            <h3>Associate Data Scientist + Python</h3>
+            <p class="meta">Digital Talent Academy, Komdigi, Sep 2026, 31 hours</p>
             <p class="id">ID 21211993840-9874</p>
-            <span class="ok"><i class="ph ph-seal-check"></i>Verified</span>
+            <div class="acts">
+              <button class="ok" type="button" data-cert="assets/img/certs/dta-associate-data-scientist.webp" data-cap="Associate Data Scientist + Python, Digital Talent Academy, Komdigi, Sep 2026, 31 hours"><i
+                  class="ph ph-seal-check"></i>View certificate</button>
+            </div>
           </article>
           <article class="cred spot">
             <div class="holo" aria-hidden="true"></div>
-            <div class="logo"><img src="assets/img/cert-digitalent.png" alt="Digitalent" loading="lazy"
-                decoding="async"></div>
-            <h3>Data Analysis Micro Skill</h3>
+            <div class="logo"><img src="assets/img/cert-digitalent.png" alt="Digitalent" loading="lazy" decoding="async"></div>
+            <h3>Data Scientist Supervisor</h3>
+            <p class="meta">Digital Talent Academy, Komdigi, Sep 2026, 20 hours</p>
+            <p class="id">ID 21211994840-2547</p>
+            <div class="acts">
+              <button class="ok" type="button" data-cert="assets/img/certs/dta-data-scientist-supervisor.webp" data-cap="Data Scientist Supervisor, Digital Talent Academy, Komdigi, Sep 2026, 20 hours"><i
+                  class="ph ph-seal-check"></i>View certificate</button>
+            </div>
+          </article>
+          <article class="cred spot">
+            <div class="holo" aria-hidden="true"></div>
+            <div class="logo"><img src="assets/img/cert-dqlab.png" alt="DQLab" loading="lazy" decoding="async"></div>
+            <h3>Fundamental of Data Analyst</h3>
+            <p class="meta">DQLab x Digital Talent Academy, Sep 2026, 260 hours</p>
+            <p class="id">ID 21212008840-451</p>
+            <div class="acts">
+              <button class="ok" type="button" data-cert="assets/img/certs/dqlab-fundamental-data-analyst.webp" data-cap="Fundamental of Data Analyst, DQLab x Digital Talent Academy, Sep 2026, 260 hours"><i
+                  class="ph ph-seal-check"></i>View certificate</button>
+            </div>
+          </article>
+          <article class="cred spot">
+            <div class="holo" aria-hidden="true"></div>
+            <div class="logo"><img src="assets/img/cert-dqlab.png" alt="DQLab" loading="lazy" decoding="async"></div>
+            <h3>Practical Real Business Application for Data Analyst</h3>
+            <p class="meta">DQLab x Digital Talent Academy, Sep 2026, 89 hours</p>
+            <p class="id">ID 21212009840-173</p>
+            <div class="acts">
+              <button class="ok" type="button" data-cert="assets/img/certs/dqlab-practical-business-data-analyst.webp" data-cap="Practical Real Business Application for Data Analyst, DQLab x Digital Talent Academy, Sep 2026, 89 hours"><i
+                  class="ph ph-seal-check"></i>View certificate</button>
+            </div>
+          </article>
+          <article class="cred spot">
+            <div class="holo" aria-hidden="true"></div>
+            <div class="logo"><img src="assets/img/cert-myskill.png" alt="MySkill" loading="lazy" decoding="async"></div>
+            <h3>Data Analytic in Power BI</h3>
+            <p class="meta">MySkill, Sep 2026</p>
+            <p class="id">ID MS-20260902-4VaFN2yRJ0yjExugSDVw</p>
+            <div class="acts">
+              <button class="ok" type="button" data-cert="assets/img/certs/myskill-power-bi.webp" data-cap="Data Analytic in Power BI, MySkill, Sep 2026"><i
+                  class="ph ph-seal-check"></i>View certificate</button>
+            </div>
+          </article>
+          <article class="cred spot">
+            <div class="holo" aria-hidden="true"></div>
+            <div class="logo"><img src="assets/img/cert-digitalent.png" alt="Digitalent" loading="lazy" decoding="async"></div>
+            <h3>Data Science Micro Skill</h3>
             <p class="meta">Digitalent Komdigi, Aug 2026</p>
             <p class="id">ID 2299818850-40648</p>
-            <span class="ok"><i class="ph ph-seal-check"></i>Verified</span>
+            <div class="acts">
+              <button class="ok" type="button" data-cert="assets/img/certs/digitalent-micro-skill-data-science.webp" data-cap="Data Science Micro Skill, Digitalent Komdigi, Aug 2026"><i
+                  class="ph ph-seal-check"></i>View certificate</button>
+            </div>
           </article>
           <article class="cred spot">
             <div class="holo" aria-hidden="true"></div>
             <div class="logo"><img src="assets/img/cert-cisco.png" alt="Cisco" loading="lazy" decoding="async"></div>
             <h3>Introduction to Cybersecurity</h3>
             <p class="meta">Cisco Networking Academy, Oct 2025</p>
-            <span class="ok"><i class="ph ph-seal-check"></i>Verified</span>
+            <div class="acts">
+              <button class="ok" type="button" data-cert="assets/img/certs/cisco-intro-cybersecurity.webp" data-cap="Introduction to Cybersecurity, Cisco Networking Academy, Oct 2025"><i
+                  class="ph ph-seal-check"></i>View certificate</button>
+            </div>
           </article>
           <article class="cred spot">
             <div class="holo" aria-hidden="true"></div>
-            <div class="logo"><img src="assets/img/cert-greatlearning.png" alt="Great Learning" loading="lazy"
-                decoding="async"></div>
+            <div class="logo"><img src="assets/img/cert-greatlearning.png" alt="Great Learning" loading="lazy" decoding="async"></div>
             <h3>Database Management System</h3>
             <p class="meta">Great Learning Academy, May 2024</p>
             <p class="id">ID HOYIEVTL</p>
-            <span class="ok"><i class="ph ph-seal-check"></i>Verified</span>
+            <div class="acts">
+              <button class="ok" type="button" data-cert="assets/img/certs/greatlearning-dbms.webp" data-cap="Database Management System, Great Learning Academy, May 2024"><i
+                  class="ph ph-seal-check"></i>View certificate</button>
+              <a class="vfy" href="https://www.mygreatlearning.com/certificate/HOYIEVTL" target="_blank" rel="noopener">Verify<i
+                  class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+            </div>
           </article>
         </div>
       </div>
@@ -5902,6 +6026,9 @@
         if (a === 'prev') lbStep(-1);
         if (a === 'next') lbStep(1);
       });
+      const certs = $$('#creds [data-cert]');
+      const certList = certs.map(b => ({ src: b.dataset.cert, cap: b.dataset.cap || '' }));
+      certs.forEach((b, i) => b.addEventListener('click', () => openLB(certList, i)));
       $$('.shots').forEach(g => {
         const imgs = $$('img', g);
         imgs.forEach((im, i) => im.addEventListener('click', () =>
